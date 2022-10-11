@@ -7,6 +7,10 @@ class TimelineJS extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
 
     public $title;
     public $description;
+    public $item_date;
+    public $item_interval;
+    public $item_title;
+    public $item_description;
     public $query;
     public $creator_id = 0;
     public $public = 0;
@@ -53,6 +57,6 @@ class TimelineJS extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
     {
         $urlHelper = new Omeka_View_Helper_Url;
         $params = array('action' => $action, 'id' => $this->id);
-        return $urlHelper->url($params, 'timelineActionRoute');
+        return $urlHelper->url($params, 'timelinesAction');
     }
 }

@@ -1,11 +1,10 @@
 <?php
 
 /**
- * Exhibit timeline view helper.
+ * TimelineJS view timeline data helper.
  *
- * @package ExhibitBuilder\View\Helper 
  */
-class ExhibitBuilder_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
+class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
 {
     /**
      * Minimum and maximum years.
@@ -44,26 +43,22 @@ class ExhibitBuilder_View_Helper_GetTimelineData extends Zend_View_Helper_Abstra
     /**
      * Build data for a timeline.
      *
-     * @uses ExhibitBuilder_View_Helper_ExhibitAttachment
-     * @param ExhibitBlockAttachment[] $attachments
-     * @param array $configs
+     * @param stdClass $items
+     * @param array $timeline
      * @return array
      */
-    public function getTimelineData($attachments, $configs = array())
+    public function getTimelineData($items, $timeline = array())
     {        
-        // If both timestamp and interval fields, save to single array
-        $dataTypeProperties = array();
-        $dataTypeProperties['timestamp-field'] = isset($configs['timestamp-field']) ? $configs['timestamp-field'] : '';
-        $dataTypeProperties['interval-field'] = isset($configs['interval-field']) ? $configs['interval-field'] : '';
+        // Save item metadata field selections to single array
+        $slideProperties = array();
+        $slideProperties['timestamp'] = metadata($timeline, 'item_date') ?: '';
+        $slideProperties['interval'] = metadata($timeline, 'item_interval') ?: '';
+        $slideProperties['title'] = metadata($timeline, 'item_title') ?: null;
+        $slideProperties['description'] = metadata($timeline, 'item_description') ?: null;
 
         // Create timeline event for each attachment
-        foreach  ($attachments as $attachment) {
-            $item = $attachment->getItem();
-            if (!$item) {
-                // This attachment has no item. Do not add create event.
-                continue;
-            }
-            $event = $this->getTimelineEvent($item, $dataTypeProperties);
+        foreach  ($items as $item) {
+            $event = $this->getTimelineEvent($item, $slideProperties);
             if ($event) {
                 $events[] = $event;
             }
@@ -75,11 +70,11 @@ class ExhibitBuilder_View_Helper_GetTimelineData extends Zend_View_Helper_Abstra
         ];
 
         // Set the timeline title and description.
-        if (isset($configs['timeline-title']) || isset($configs['timeline_text'])) {
+        if (metadata($timeline, 'title') || metadata($timeline, 'description')) {
             $timelineData['title'] = [
                 'text' => [
-                    'headline' => $configs['timeline-title'],
-                    'text' => $configs['timeline-text'],
+                    'headline' => metadata($timeline, 'title'),
+                    'text' => metadata($timeline, 'description'),
                 ],
             ];
         }
@@ -92,15 +87,16 @@ class ExhibitBuilder_View_Helper_GetTimelineData extends Zend_View_Helper_Abstra
      *
      * @see https://timeline.knightlab.com/docs/json-format.html#json-slide
      * @param ItemRepresentation $item
-     * @param array $dataTypeProperties
+     * @param array $slideProperties
      * @return array
      */
-    public function getTimelineEvent($item, $dataTypeProperties)
+    public function getTimelineEvent($item, $slideProperties)
     {
         $property = null;
-        $dataType = null;
+        $property_name = null;
         $value = null;
-        foreach ($dataTypeProperties as $dataType => $property_id) {
+        $slideValues = array();
+        foreach ($slideProperties as $property_name => $property_id) {
             try {
                 $property = get_db()->getTable('Element')->find($property_id);
             } catch (NotFoundException $e) {
@@ -109,22 +105,22 @@ class ExhibitBuilder_View_Helper_GetTimelineData extends Zend_View_Helper_Abstra
             }
             $value = metadata($item, [$property->getElementSet()->name, $property->name]);
             if ($value) {
-                // Set only the first matching value.
-                break;
+                $slideValues[$property_name] = $value;
             }
         }
-        if (!$value) {
+        if (!$slideValues) {
             // This item has no matching values.
             return;
         }
+        _log(__(print_r($slideValues, true)), Zend_Log::WARN);
 
         // Set the unique ID and "text" object.
-        $itemLink = exhibit_builder_link_to_exhibit_item(null, $linkProps = array(), $item);
+        $itemLink = link_to_item($slideValues['title'], array(), 'show', $item);
         $event = [
             'unique_id' => (string) $item->id, // must cast to string
             'text' => [
                 'headline' => $itemLink,
-                'text' => metadata($item, array('Dublin Core', 'Description')),
+                'text' => $slideValues['description'],
             ],
         ];
         
@@ -134,14 +130,14 @@ class ExhibitBuilder_View_Helper_GetTimelineData extends Zend_View_Helper_Abstra
             $event['media'] = [
                 'url' => $file->getProperty('uri'),
                 'thumbnail' => $file->getProperty('thumbnail_uri'),
-                'link' => exhibit_builder_exhibit_item_uri($item),
+                'link' => $itemLink,
                 'alt' => $file->getProperty('display_title'),
             ];
         }
         
         // Set the start and end "date" objects.
-        if ('timestamp-field' === $dataType) {
-            $dateTime = $this->getDateTimeFromValue($value);
+        if (isset($slideValues['timestamp'])) {
+            $dateTime = $this->getDateTimeFromValue($slideValues['timestamp']);
             $event['start_date'] = [
                 'year' => $dateTime['year'],
                 'month' => $dateTime['month'],
@@ -154,8 +150,8 @@ class ExhibitBuilder_View_Helper_GetTimelineData extends Zend_View_Helper_Abstra
         
         // If both timestamp-field and interval-field are set
         // and item has both values, interval-field overrides
-        if ('interval-field' === $dataType) {
-            list($intervalStart, $intervalEnd) = explode('-', $value);
+        if (isset($slideValues['interval'])) {
+            list($intervalStart, $intervalEnd) = explode('-', $slideValues['interval']);
             $dateTimeStart = Timestamp::getDateTimeFromValue($intervalStart);
             $event['start_date'] = [
                 'year' => $dateTimeStart['year'],

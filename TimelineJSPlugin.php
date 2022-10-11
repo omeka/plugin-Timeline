@@ -52,6 +52,10 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
                 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `title` TINYTEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `description` TEXT COLLATE utf8_unicode_ci DEFAULT NULL,
+                `item_date` INT UNSIGNED NOT NULL,
+                `item_interval` INT UNSIGNED NOT NULL,
+                `item_title` INT UNSIGNED NOT NULL,
+                `item_description` INT UNSIGNED NOT NULL,
                 `query` TEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `creator_id` INT UNSIGNED NOT NULL,
                 `public` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
@@ -63,8 +67,6 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
             ";
 
         $db->query($sql);
-
-        $this->setDefaultOptions();
 
     }
 
@@ -108,7 +110,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
                             'controller'    => 'timelines'
                             ),
                         array('id'          => '\d+'));
-        $router->addRoute('timelineActionRoute', $actionRoute);
+        $router->addRoute('timelinesAction', $actionRoute);
 
         $defaultRoute = new Zend_Controller_Router_Route('timeline-js/timelines/:action',
                         array(
@@ -116,7 +118,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
                             'controller'    => 'timelines'
                             ),
                         );
-        $router->addRoute('timelineDefaultRoute', $defaultRoute);
+        $router->addRoute('timelinesDefault', $defaultRoute);
 
         $redirectRoute = new Zend_Controller_Router_Route('timeline-js',
                         array(
@@ -125,7 +127,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
                             'action'        => 'browse'
                             ),
                         );
-        $router->addRoute('timelineRedirectRoute', $redirectRoute);
+        $router->addRoute('timelinesRedirect', $redirectRoute);
 
         $pageRoute = new Zend_Controller_Router_Route('timeline-js/timelines/:page',
                         array(
@@ -135,7 +137,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
                             'page'          => '1'
                             ),
                         array('page'          => '\d+'));
-        $router->addRoute('timelinePaginationRoute', $pageRoute);
+        $router->addRoute('timelinesPagination', $pageRoute);
     }
 
     public function hookAdminAppendToPluginUninstallMessage()
@@ -174,7 +176,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
     public function hookExhibitBuilderPageHead($args)
     {
         if (array_key_exists('timelinejs', $args['layouts'])) {
-            queue_timeline_assets();
+            queue_timelinejs_assets();
         }
     }
     /**
@@ -211,7 +213,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
 
         $nav[] = array(
             'label' => __('TimelineJS'),
-            'uri' => url('timelinejs')
+            'uri' => url('timeline-js')
         );
         return $nav;
 
@@ -260,20 +262,5 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
             'description' => __('Embed a TimelineJS timeline.')
         );
         return $layouts;
-    }
-
-    protected function setDefaultOptions()
-    {
-        $options = array();
-        $fields = array('Title', 'Description', 'Date');
-
-        foreach ($fields as $field) {
-            $key = 'item_'.strtolower($field);
-            $element = $this->_db->getTable('Element')->findByElementSetNameAndElementName("Dublin Core", "$field");
-            $options[$key] = $element->id;
-        }
-
-        $options = serialize($options);
-        set_option('timelinejs', $options);
     }
 }

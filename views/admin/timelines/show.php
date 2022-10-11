@@ -3,7 +3,7 @@
  * The show view for the TimelineJS administrative panel.
  */
 
-queue_timeline_assets();
+queue_timelinejs_assets();
 $timelineTitle = metadata($timelinejs, 'title');
 $head = array('bodyclass' => 'timelines primary',
               'title' => __('TimelineJS | %s', strip_formatting($timelineTitle))
@@ -14,7 +14,7 @@ echo head($head);
 <div id="primary" class="seven columns alpha">
 
     <!-- Construct the timeline. -->
-    <?php echo $this->partial('timelines/_timeline.php', array('center_date' => metadata($timelinejs, 'center_date'))); ?>
+    <?php echo $this->partial('timelines/_timeline.php', array('items' => $items, 'timelinejs' => $timelinejs)); ?>
 
 <?php
 $query = unserialize($timelinejs->query);
@@ -34,7 +34,7 @@ echo item_search_filters($query);
     <?php echo link_to($timelinejs, 'edit', __('Edit Metadata'), array('class' => 'big green button')); ?>
     <?php echo link_to($timelinejs, 'query', __('Edit Items Query'), array('class' => 'big green button')); ?>
 <?php endif; ?>
-<a href="<?php echo html_escape(public_url('neatline-time/timelines/show/'.timeline('id'))); ?>" class="big blue button"><?php echo __('View Public Page'); ?></a>
+<a href="<?php echo html_escape(public_url('timelinejs/timelines/show/'.timelinejs_id($timelinejs))); ?>" class="big blue button"><?php echo __('View Public Page'); ?></a>
 <?php echo link_to($timelinejs, 'delete-confirm', __('Delete'), array('class' => 'delete-confirm big red button')); ?>
 </div>
 </div>

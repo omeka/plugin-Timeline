@@ -17,6 +17,10 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
     {
         require_once TIMELINE_JS_FORMS_DIR . '/timeline.php';
         $form = new TimelineJS_Form_Timeline;
+        $form->setDefaults(array('item_date' => '40',
+                                 'item_interval' => '38',
+                                 'item_title' => '50',
+                                 'item_description' => '41'));
         $this->view->form = $form;
         parent::addAction();
     }
@@ -24,14 +28,22 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
     public function editAction()
     {
         $timeline = $this->_helper->db->findById();
-
+    
         require_once TIMELINE_JS_FORMS_DIR . '/timeline.php';
         $form = new TimelineJS_Form_Timeline;
-        $form->setDefaults(array('title' => $timeline->title, 'description' => $timeline->description, 'public' => $timeline->public, 'featured' => $timeline->featured));
+        _log(__(print_r($timeline, true)), Zend_Log::WARN);
+        $form->setDefaults(array('title' => $timeline->title, 
+                                 'description' => $timeline->description,
+                                 'public' => $timeline->public,
+                                 'item_date' => $timeline->item_date,
+                                 'item_interval' => $timeline->item_interval,
+                                 'item_title' => $timeline->item_title,
+                                 'item_description' => $timeline->item_description,
+                                 'featured' => $timeline->featured));
 
         $this->view->form = $form;
         parent::editAction();
-
+    
     }
 
     public function queryAction()
@@ -52,17 +64,26 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
             $_REQUEST = $queryArray;
         }
 
-        $this->view->timelinejs_timeline = $timeline;
+        $this->view->timelinejs = $timeline;
     }
 
-    public function itemsAction()
+    // public function itemsAction()
+    // {
+    //     $timeline = $this->_helper->db->findById();
+    // 
+    //     $query = $timeline->query ? unserialize($timeline->query) : array();
+    //     $items = get_db()->getTable('Item')->findBy($query, null);
+    // 
+    //     $this->view->timelinejs = $timeline;
+    //     $this->view->items = $items;
+    // }
+    
+    public function showAction()
     {
         $timeline = $this->_helper->db->findById();
+        $items = get_db()->getTable('Item')->findBy(unserialize($timeline->query), null);
 
-        $query = $timeline->query ? unserialize($timeline->query) : array();
-        $items = get_db()->getTable('Item')->findBy($query, null);
-
-        $this->view->timelinejs_timeline = $timeline;
+        $this->view->timelinejs = $timeline;
         $this->view->items = $items;
     }
 

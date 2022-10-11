@@ -12,7 +12,7 @@ echo head($head);
 <div class="pagination"><?php echo pagination_links(); ?></div>
 <div class="table-actions">
 <?php if (is_allowed('TimelineJS_Timelines', 'add')): ?>
-    <a href="<?php echo html_escape(url('timelinejs/timelines/add')); ?>" class="small green button">
+    <a href="<?php echo html_escape(url('timeline-js/timelines/add')); ?>" class="small green button">
         <?php echo __('Add a Timeline'); ?>
     </a>
 <?php endif; ?>
@@ -56,6 +56,6 @@ echo head($head);
 </div>
 
 <?php else : ?>
-    <p><?php echo __('There are no timelines.'); ?> <?php if (is_allowed('TimelineJS_Timelines', 'add')): ?><a href="<?php echo html_escape(url('timelinejs/timelines/add')); ?>"><?php echo __('Add a Timeline'); ?>.</a><?php endif; ?></p>
+    <p><?php echo __('There are no timelines.'); ?> <?php if (is_allowed('TimelineJS_Timelines', 'add')): ?><a href="<?php echo html_escape(url('timeline-js/timelines/add')); ?>"><?php echo __('Add a Timeline'); ?>.</a><?php endif; ?></p>
 <?php endif; ?>
 <?php echo foot(); ?>
