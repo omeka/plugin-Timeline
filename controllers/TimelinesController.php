@@ -31,7 +31,6 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
     
         require_once TIMELINE_JS_FORMS_DIR . '/timeline.php';
         $form = new TimelineJS_Form_Timeline;
-        _log(__(print_r($timeline, true)), Zend_Log::WARN);
         $form->setDefaults(array('title' => $timeline->title, 
                                  'description' => $timeline->description,
                                  'public' => $timeline->public,

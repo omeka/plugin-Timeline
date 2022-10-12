@@ -11,7 +11,7 @@ $timelineData = json_encode($this->getTimelineData($this->items, $this->timeline
 <script>
   jQuery(document).ready(function($) {
         var timelineDiv = jQuery('.timelinejs-timeline');
-        var timelineData = timelineDiv.length ? timelineDiv.data('data-timeline-data') : null;
+        var timelineData = timelineDiv.length ? timelineDiv.data('timeline-data') : null;
         var timeline = timelineDiv.length ? new TL.Timeline(timelineDiv[0], timelineData, null) : null;
     });
 </script>

@@ -112,7 +112,6 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
             // This item has no matching values.
             return;
         }
-        _log(__(print_r($slideValues, true)), Zend_Log::WARN);
 
         // Set the unique ID and "text" object.
         $itemLink = link_to_item($slideValues['title'], array(), 'show', $item);

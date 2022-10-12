@@ -47,13 +47,6 @@ echo head($head);
         <?php endforeach; ?>
     </tbody>
 </table>
-<div class="table-actions">
-<?php if (is_allowed('TimelineJS_Timelines', 'add')): ?>
-    <a href="<?php echo html_escape(url('timelinejs/timelines/add')); ?>" class="small green button">
-        <?php echo __('Add a Timeline'); ?>
-    </a>
-<?php endif; ?>
-</div>
 
 <?php else : ?>
     <p><?php echo __('There are no timelines.'); ?> <?php if (is_allowed('TimelineJS_Timelines', 'add')): ?><a href="<?php echo html_escape(url('timeline-js/timelines/add')); ?>"><?php echo __('Add a Timeline'); ?>.</a><?php endif; ?></p>
