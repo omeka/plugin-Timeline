@@ -80,7 +80,12 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
     public function showAction()
     {
         $timeline = $this->_helper->db->findById();
-        $items = get_db()->getTable('Item')->findBy(unserialize($timeline->query), null);
+
+        if (isset($timeline->query)) {
+            $items = get_db()->getTable('Item')->findBy(unserialize($timeline->query), null);
+        } else {
+            $items = [];
+        }
 
         $this->view->timelinejs = $timeline;
         $this->view->items = $items;
