@@ -34,7 +34,7 @@ echo item_search_filters($query);
     <?php echo link_to($timelinejs, 'edit', __('Edit Metadata'), array('class' => 'big green button')); ?>
     <?php echo link_to($timelinejs, 'query', __('Edit Items Query'), array('class' => 'big green button')); ?>
 <?php endif; ?>
-<a href="<?php echo html_escape(public_url('timelinejs/timelines/show/'.timelinejs_id($timelinejs))); ?>" class="big blue button"><?php echo __('View Public Page'); ?></a>
+<a href="<?php echo html_escape(public_url('timeline-js/timelines/show/'.timelinejs('id', null, $timelinejs))); ?>" class="big blue button"><?php echo __('View Public Page'); ?></a>
 <?php echo link_to($timelinejs, 'delete-confirm', __('Delete'), array('class' => 'delete-confirm big red button')); ?>
 </div>
 </div>
