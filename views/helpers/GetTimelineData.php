@@ -114,12 +114,14 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         }
 
         // Set the unique ID and "text" object.
-        $itemLink = link_to_item($slideValues['title'], array(), 'show', $item);
+        $slideTitle = isset($slideValues['title']) ? $slideValues['title'] : '';
+        $slideDesc = isset($slideValues['description']) ? $slideValues['description'] : '';
+        $itemLink = link_to_item($slideTitle, array(), 'show', $item);
         $event = [
             'unique_id' => (string) $item->id, // must cast to string
             'text' => [
                 'headline' => $itemLink,
-                'text' => $slideValues['description'],
+                'text' => $slideDesc,
             ],
         ];
         
