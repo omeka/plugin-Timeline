@@ -14,7 +14,7 @@ echo head($head);
     });
 </script>
     <?php
-$query = unserialize($timelinejs->query);
+$query = isset($timelinejs->query) ? unserialize($timelinejs->query): [];
 if ($query && is_array($query)) {
 ?>
     <p><strong><?php echo __('The &#8220;%s&#8221; timeline displays items that match the following query:', $timelineTitle) ?></strong></p>

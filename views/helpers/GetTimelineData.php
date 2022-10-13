@@ -137,42 +137,48 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         // Set the start and end "date" objects.
         if (isset($slideValues['timestamp'])) {
             $dateTime = $this->getDateTimeFromValue($slideValues['timestamp']);
-            $event['start_date'] = [
-                'year' => $dateTime['year'],
-                'month' => $dateTime['month'],
-                'day' => $dateTime['day'],
-                'hour' => $dateTime['hour'],
-                'minute' => $dateTime['minute'],
-                'second' => $dateTime['second'],
-            ];
+            if (isset($dateTime)) {
+                $event['start_date'] = [
+                    'year' => $dateTime['year'],
+                    'month' => $dateTime['month'],
+                    'day' => $dateTime['day'],
+                    'hour' => $dateTime['hour'],
+                    'minute' => $dateTime['minute'],
+                    'second' => $dateTime['second'],
+                ];
+            }
         } 
         
         // If both timestamp-field and interval-field are set
         // and item has both values, interval-field overrides
         if (isset($slideValues['interval'])) {
-            list($intervalStart, $intervalEnd) = explode('-', $slideValues['interval']);
+            list($intervalStart, $intervalEnd) = explode('/', $slideValues['interval']);
             $dateTimeStart = Timestamp::getDateTimeFromValue($intervalStart);
-            $event['start_date'] = [
-                'year' => $dateTimeStart['year'],
-                'month' => $dateTimeStart['month'],
-                'day' => $dateTimeStart['day'],
-                'hour' => $dateTimeStart['hour'],
-                'minute' => $dateTimeStart['minute'],
-                'second' => $dateTimeStart['second'],
-            ];
+            if (isset($dateTimeStart)) {
+                $event['start_date'] = [
+                    'year' => $dateTimeStart['year'],
+                    'month' => $dateTimeStart['month'],
+                    'day' => $dateTimeStart['day'],
+                    'hour' => $dateTimeStart['hour'],
+                    'minute' => $dateTimeStart['minute'],
+                    'second' => $dateTimeStart['second'],
+                ];
+            }
             $dateTimeEnd = $this->getDateTimeFromValue($intervalEnd, false);
-            $event['end_date'] = [
-                'year' => $dateTimeEnd['year'],
-                'month' => $dateTimeEnd['month_normalized'],
-                'day' => $dateTimeEnd['day_normalized'],
-                'hour' => $dateTimeEnd['hour_normalized'],
-                'minute' => $dateTimeEnd['minute_normalized'],
-                'second' => $dateTimeEnd['second_normalized'],
-            ];
+            if (isset($dateTimeEnd)) {
+                $event['end_date'] = [
+                    'year' => $dateTimeEnd['year'],
+                    'month' => $dateTimeEnd['month_normalized'],
+                    'day' => $dateTimeEnd['day_normalized'],
+                    'hour' => $dateTimeEnd['hour_normalized'],
+                    'minute' => $dateTimeEnd['minute_normalized'],
+                    'second' => $dateTimeEnd['second_normalized'],
+                ];
+            }
             $event['display_date'] = sprintf(
                 '%s — %s',
-                $dateTimeStart['date']->format($dateTimeStart['format_render']),
-                $dateTimeEnd['date']->format($dateTimeEnd['format_render'])
+                isset($dateTimeStart) ? $dateTimeStart['date']->format($dateTimeStart['format_render']) : '',
+                isset($dateTimeEnd) ? $dateTimeEnd['date']->format($dateTimeEnd['format_render']) : ''
             );
         }
 
@@ -206,16 +212,16 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         // Match against ISO 8601, allowing for reduced accuracy.
         $isMatch = preg_match(sprintf('/%s/', self::PATTERN_ISO8601), $value, $matches);
         if (!$isMatch) {
-            throw new InvalidArgumentException(sprintf('Invalid ISO 8601 datetime: %s', $value));
+            return;
         }
         $matches = array_filter($matches); // remove empty values
         // An hour requires a day.
         if (isset($matches['hour']) && !isset($matches['day'])) {
-            throw new InvalidArgumentException(sprintf('Invalid ISO 8601 datetime: %s', $value));
+            return;
         }
         // An offset requires a time.
         if (isset($matches['offset']) && !isset($matches['time'])) {
-            throw new InvalidArgumentException(sprintf('Invalid ISO 8601 datetime: %s', $value));
+            return;
         }
 
         // Set the datetime components included in the passed value.
