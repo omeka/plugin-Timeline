@@ -17,7 +17,7 @@ echo head($head);
     <?php echo $this->partial('timelines/_timeline.php', array('items' => $items, 'timelinejs' => $timelinejs)); ?>
 
 <?php
-$query = unserialize($timelinejs->query);
+$query = isset($timelinejs->query) ? unserialize($timelinejs->query): [];
 if ($query && is_array($query)) {
 ?>
         <h2><?php echo __('Items Query'); ?></h2>

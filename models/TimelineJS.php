@@ -42,6 +42,16 @@ class TimelineJS extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
         return 'TimelineJS_Timelines';
     }
 
+    /**
+     * Validate the form data.
+     */
+    protected function _validate()
+    {
+        if (empty($this->title)) {
+            $this->addError('title', __('Title is required.'));
+        }
+    }
+
     protected function beforeSave($args)
     {
         $query = $this->query;

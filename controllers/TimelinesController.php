@@ -22,6 +22,11 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
                                  'item_title' => '50',
                                  'item_description' => '41'));
         $this->view->form = $form;
+        if ($this->getRequest()->isPost()) {
+            if (!$this->view->form->isValid($_POST)) {
+                $this->_helper->_flashMessenger(__('There were errors found in your form. Please edit and resubmit.'), 'error');
+            }
+        }
         parent::addAction();
     }
 

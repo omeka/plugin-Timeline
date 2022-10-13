@@ -14,7 +14,8 @@ class TimelineJS_Form_Timeline extends Omeka_Form
         // Timeline Title
         $this->addElement('text', 'title', array(
             'label'       => __('Title'),
-            'description' => __('A title for your timeline.')
+            'description' => __('A title for your timeline.'),
+            'required' => true,
         ));
 
         // Timeline Description
