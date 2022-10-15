@@ -79,12 +79,7 @@ class TimelineJS_Form_Timeline extends Omeka_Form
             'multiOptions' => array('0' => 'Not Featured', '1' => 'Featured')
         ));
 
-        // Submit
-        $this->addElement('submit', 'submit', array(
-            'label' => __('Save Timeline')
-        ));
-
-        // Group the title, description, and public fields
+        // Group metadata fields for display
         $this->addDisplayGroup(
             array('title',
                   'description',
@@ -97,9 +92,6 @@ class TimelineJS_Form_Timeline extends Omeka_Form
                  ),
             'timeline_info'
         );
-
-        // Add the submit to a separate display group.
-        $this->addDisplayGroup(array('submit'), 'timeline_submit');
     }
 
 }
