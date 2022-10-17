@@ -9,14 +9,12 @@ echo head($head);
 ?>
 <?php echo flash(); ?>
 <?php if ($total_results) : ?>
-<div class="pagination"><?php echo pagination_links(); ?></div>
-<div class="table-actions">
+<?php echo pagination_links(); ?>
 <?php if (is_allowed('TimelineJS_Timelines', 'add')): ?>
-    <a href="<?php echo html_escape(url('timeline-js/timelines/add')); ?>" class="small green button">
+    <a href="<?php echo html_escape(url('timeline-js/timelines/add')); ?>" class="add full-width-mobile button green">
         <?php echo __('Add a Timeline'); ?>
     </a>
 <?php endif; ?>
-</div>
 <table>
     <thead id="timelines-table-head">
         <tr>
@@ -47,6 +45,7 @@ echo head($head);
         <?php endforeach; ?>
     </tbody>
 </table>
+<?php echo pagination_links(); ?>
 
 <?php else : ?>
     <p><?php echo __('There are no timelines.'); ?> <?php if (is_allowed('TimelineJS_Timelines', 'add')): ?><a href="<?php echo html_escape(url('timeline-js/timelines/add')); ?>"><?php echo __('Add a Timeline'); ?>.</a><?php endif; ?></p>
