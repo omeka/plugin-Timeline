@@ -14,7 +14,7 @@ echo head($head);
 <div id="primary" class="seven columns alpha">
 
     <!-- Construct the timeline. -->
-    <?php echo $this->partial('timelines/_timeline.php', array('items' => $items, 'timelinejs' => $timelinejs)); ?>
+    <?php echo $this->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timelinejs)); ?>
 
 <?php
 $query = isset($timelinejs->query) ? unserialize($timelinejs->query): [];

@@ -12,7 +12,7 @@ echo head($head);
 <h1><?php echo metadata($timelinejs, 'title'); ?></h1>
 
     <!-- Construct the timeline. -->
-    <?php echo $this->partial('timelines/_timeline.php', array('items' => $items, 'timelinejs' => $timelinejs)); ?>
+    <?php echo $this->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timelinejs)); ?>
 
     <?php echo metadata($timelinejs, 'description'); ?>
 

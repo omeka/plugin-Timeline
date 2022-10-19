@@ -6,7 +6,7 @@
  * @package TimelineJS
  * @subpackage Models
  */
-class Table_TimelineJS extends Omeka_Db_Table {
+class TimelineJSTable extends Omeka_Db_Table {
 
     /**
      * Filter public/not public timelines.

@@ -6,6 +6,12 @@
   if (!$timelinejs) {
       return;
   }
-  set_current_record('timelinejs', $timelinejs);
-  echo $this->partial('timelines/_timeline.php', array('items' => $items, 'timelinejs' => $timelinejs)));
+
+  if (isset($timelinejs->query)) {
+      $items = get_db()->getTable('Item')->findBy(unserialize($timelinejs->query), null);
+  } else {
+      $items = [];
+  }
+
+  echo $this->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timelinejs));
 ?>
