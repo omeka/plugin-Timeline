@@ -40,8 +40,6 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_filters = array(
         'admin_navigation_main',
         'public_navigation_main',
-        'response_contexts',
-        'action_contexts',
         'exhibit_layouts'
     );
 
@@ -221,36 +219,6 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
             'uri' => url('timeline-js')
         );
         return $nav;
-
-    }
-
-    /**
-     * Adds the timelinejs-json context to response contexts.
-     */
-    public function filterResponseContexts($contexts)
-    {
-
-        $contexts['timelinejs-json'] = array(
-            'suffix'  => 'timelinejs-json',
-            'headers' => array('Content-Type' => 'text/javascript')
-        );
-
-        return $contexts;
-
-    }
-
-    /**
-     * Adds timelinejs-json context to the 'items' actions for the
-     * TimelineJS_TimelinesController.
-     */
-    public function filterActionContexts($contexts, $args)
-    {
-
-        if ($args['controller'] instanceof TimelineJS_TimelinesController) {
-            $contexts['items'][''] = 'timelinejs-json';
-        }
-
-        return $contexts;
 
     }
 
