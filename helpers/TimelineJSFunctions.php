@@ -40,19 +40,6 @@ function link_to_timelinejs($text = null, $props = array(), $action = 'show', $t
 
 }
 
-/**
- * Queues JavaScript and CSS for TimelineJS in the page header.
- */
-function queue_timelinejs_assets()
-{
-    $headScript = get_view()->headScript();
-
-    queue_css_url('https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css');
-    queue_js_url('https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js');
-
-    queue_css_file('timelinejs');
-}
-
 // /**
 //  * Returns the URI for a timeline's json output.
 //  *
@@ -163,3 +150,29 @@ function timelinejs_id($timeline = null)
 //     return metadata($item, array($element->getElementSet()->name, $element->name), $options);
 // 
 // }
+
+/**
+ * Shortcode for displaying Timelines.
+ *
+ * @param array $args
+ * @param Omeka_View $view
+ * @return string
+ */
+function timelinejs_shortcode($args, $view)
+{
+    if (!array_key_exists('title', $args)) {
+        return;
+    }
+    $timelinejs = get_record('TimelineJS',  array('title'=>$args['title']));
+    if (!$timelinejs) {
+        return;
+    }
+
+    if (isset($timelinejs->query)) {
+        $items = get_db()->getTable('Item')->findBy(unserialize($timelinejs->query), null);
+    } else {
+        $items = [];
+    }
+
+    return $view->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timelinejs));
+}

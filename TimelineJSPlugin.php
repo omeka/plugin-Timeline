@@ -26,6 +26,8 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
      * @var array Hooks for the plugin.
      */
     protected $_hooks = array(
+        'admin_head',
+        'public_head',
         'install',
         'uninstall',
         'initialize',
@@ -33,7 +35,6 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
         'define_routes',
         'admin_append_to_plugin_uninstall_message',
         'item_browse_sql',
-        'exhibit_builder_page_head'
     );
 
     protected $_filters = array(
@@ -43,6 +44,18 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
         'action_contexts',
         'exhibit_layouts'
     );
+
+    public function hookAdminHead()
+    {
+        queue_css_url('https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css');
+        queue_js_url('https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js');
+    }
+
+    public function hookPublicHead()
+    {
+        queue_css_url('https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css');
+        queue_js_url('https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js');
+    }
 
     public function hookInstall()
     {
@@ -84,6 +97,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
     public function hookInitialize()
     {
         add_translation_source(dirname(__FILE__) . '/languages');
+        add_shortcode('timeline', 'timelinejs_shortcode');
     }
 
     public function hookDefineAcl($args)
@@ -170,15 +184,6 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
 
     }
 
-    /**
-     * Add timeline assets for exhibit pages using the timeline layout.
-     */
-    public function hookExhibitBuilderPageHead($args)
-    {
-        if (array_key_exists('timelinejs', $args['layouts'])) {
-            queue_timelinejs_assets();
-        }
-    }
     /**
      * Timeline admin_navigation_main filter.
      *

@@ -3,7 +3,6 @@
  * The public show view for Timelines.
  */
 
-queue_timelinejs_assets();
 $head = array('bodyclass' => 'timelines primary',
               'title' => metadata($timelinejs, 'title')
               );

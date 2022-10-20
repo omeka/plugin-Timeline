@@ -3,7 +3,6 @@
  * The show view for the TimelineJS administrative panel.
  */
 
-queue_timelinejs_assets();
 $timelineTitle = metadata($timelinejs, 'title');
 $head = array('bodyclass' => 'timelines primary',
               'title' => __('TimelineJS | %s', strip_formatting($timelineTitle))
