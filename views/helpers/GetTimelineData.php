@@ -153,7 +153,7 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         
         // If both timestamp-field and interval-field are set
         // and item has both values, interval-field overrides
-        if (isset($slideValues['interval'])) {
+        if (isset($slideValues['interval']) && (strpos($slideValues['interval'], '/') !== false)) {
             list($intervalStart, $intervalEnd) = explode('/', $slideValues['interval']);
             $dateTimeStart = $this->getDateTimeFromValue(trim($intervalStart));
             if (isset($dateTimeStart)) {
