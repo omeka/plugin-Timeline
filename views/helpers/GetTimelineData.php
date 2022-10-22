@@ -136,9 +136,9 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
             ];
         }
         
-        // Set the start and end "date" objects.
+        // Set discrete datetime value for event
         if (isset($slideValues['timestamp'])) {
-            $dateTime = $this->getDateTimeFromValue($slideValues['timestamp']);
+            $dateTime = $this->getDateTimeFromValue(trim($slideValues['timestamp']));
             if (isset($dateTime)) {
                 $event['start_date'] = [
                     'year' => $dateTime['year'],
@@ -155,7 +155,7 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         // and item has both values, interval-field overrides
         if (isset($slideValues['interval'])) {
             list($intervalStart, $intervalEnd) = explode('/', $slideValues['interval']);
-            $dateTimeStart = Timestamp::getDateTimeFromValue($intervalStart);
+            $dateTimeStart = $this->getDateTimeFromValue(trim($intervalStart));
             if (isset($dateTimeStart)) {
                 $event['start_date'] = [
                     'year' => $dateTimeStart['year'],
@@ -166,7 +166,7 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                     'second' => $dateTimeStart['second'],
                 ];
             }
-            $dateTimeEnd = $this->getDateTimeFromValue($intervalEnd, false);
+            $dateTimeEnd = $this->getDateTimeFromValue(trim($intervalEnd), false);
             if (isset($dateTimeEnd)) {
                 $event['end_date'] = [
                     'year' => $dateTimeEnd['year'],
@@ -340,5 +340,31 @@ class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
 
         self::$dateTimes[$value][$defaultFirst ? 'first' : 'last'] = $dateTime; // Cache the date/time
         return $dateTime;
+    }
+
+    /**
+     * Get the last day of a given year/month.
+     *
+     * @param int $year
+     * @param int $month
+     * @return int
+     */
+    public static function getLastDay($year, $month)
+    {
+        switch ($month) {
+            case 2:
+                // February (accounting for leap year)
+                $leapYear = date('L', mktime(0, 0, 0, 1, 1, $year));
+                return $leapYear ? 29 : 28;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                // April, June, September, November
+                return 30;
+            default:
+                // January, March, May, July, August, October, December
+                return 31;
+        }
     }
 }
