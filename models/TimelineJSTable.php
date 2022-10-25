@@ -78,6 +78,8 @@ class TimelineJSTable extends Omeka_Db_Table {
      */
     public function applySearchFilters($select, $params)
     {
+        parent::applySearchFilters($select, $params);
+
         if (isset($params['user'])) {
             $userId = $params['user'];
             $this->filterByUser($select, $userId);

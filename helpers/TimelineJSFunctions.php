@@ -65,7 +65,7 @@ function timelinejs_shortcode($args, $view)
     if (!array_key_exists('title', $args)) {
         return;
     }
-    $timelinejs = get_record('TimelineJS',  array('title'=>$args['title']));
+    $timelinejs = get_record('TimelineJS', array('title'=>$args['title']));
     if (!$timelinejs) {
         return;
     }
