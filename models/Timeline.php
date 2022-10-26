@@ -2,7 +2,7 @@
 /**
  * TImelineJS record.
  */
-class TimelineJS extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface
+class Timeline extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface
 {
 
     public $title;
@@ -31,7 +31,7 @@ class TimelineJS extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
     /**
      * Required by Zend_Acl_Resource_Interface.
      *
-     * Identifies TimelineJS records as relating to the TimelineJS ACL
+     * Identifies Timeline records as relating to the Timeline ACL
      * resource.
      *
      * @since 1.0
@@ -39,7 +39,7 @@ class TimelineJS extends Omeka_Record_AbstractRecord implements Zend_Acl_Resourc
      */
     public function getResourceId()
     {
-        return 'TimelineJS_Timelines';
+        return 'Timeline_Timelines';
     }
 
     /**

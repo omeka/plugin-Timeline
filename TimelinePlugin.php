@@ -1,26 +1,26 @@
 <?php
 
-if (!defined('TIMELINE_JS_PLUGIN_DIR')) {
-    define('TIMELINE_JS_PLUGIN_DIR', dirname(__FILE__));
+if (!defined('TIMELINE_PLUGIN_DIR')) {
+    define('TIMELINE_PLUGIN_DIR', dirname(__FILE__));
 }
 
-if (!defined('TIMELINE_JS_HELPERS_DIR')) {
-    define('TIMELINE_JS_HELPERS_DIR', TIMELINE_JS_PLUGIN_DIR . '/helpers');
+if (!defined('TIMELINE_HELPERS_DIR')) {
+    define('TIMELINE_HELPERS_DIR', TIMELINE_PLUGIN_DIR . '/helpers');
 }
 
-if (!defined('TIMELINE_JS_FORMS_DIR')) {
-    define('TIMELINE_JS_FORMS_DIR', TIMELINE_JS_PLUGIN_DIR . '/forms');
+if (!defined('TIMELINE_FORMS_DIR')) {
+    define('TIMELINE_FORMS_DIR', TIMELINE_PLUGIN_DIR . '/forms');
 }
 
-require_once TIMELINE_JS_PLUGIN_DIR . '/TimelineJSPlugin.php';
-require_once TIMELINE_JS_HELPERS_DIR . '/TimelineJSFunctions.php';
+require_once TIMELINE_PLUGIN_DIR . '/TimelinePlugin.php';
+require_once TIMELINE_HELPERS_DIR . '/TimelineFunctions.php';
 
 /**
- * TimelineJS plugin.
+ * Timeline plugin.
  * 
- * @package Omeka\Plugins\TimelineJS
+ * @package Omeka\Plugins\Timeline
  */
-class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
+class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
 {
     /**
      * @var array Hooks for the plugin.
@@ -59,7 +59,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $db = $this->_db;
         $sql = "
-            CREATE TABLE IF NOT EXISTS `$db->TimelineJS` (
+            CREATE TABLE IF NOT EXISTS `$db->Timeline` (
                 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `title` TINYTEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `description` TEXT COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -85,65 +85,65 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
     {
 
         $db = get_db();
-        $sql = "DROP TABLE IF EXISTS `$db->TimelineJS`";
+        $sql = "DROP TABLE IF EXISTS `$db->Timeline`";
         $db->query($sql);
 
-        delete_option('timelinejs');
+        delete_option('timeline');
 
     }
 
     public function hookInitialize()
     {
         add_translation_source(dirname(__FILE__) . '/languages');
-        add_shortcode('timeline', 'timelinejs_shortcode');
+        add_shortcode('timeline', 'timeline_shortcode');
     }
 
     public function hookDefineAcl($args)
     {
         $acl = $args['acl'];
 
-        $acl->addResource('TimelineJS_Timelines');
+        $acl->addResource('Timeline_Timelines');
 
         // Allow everyone access to browse, show, and items.
-        $acl->allow(null, 'TimelineJS_Timelines', array('show', 'browse', 'items'));
+        $acl->allow(null, 'Timeline_Timelines', array('show', 'browse', 'items'));
 
-        $acl->allow('researcher', 'TimelineJS_Timelines', 'showNotPublic');
-        $acl->allow('contributor', 'TimelineJS_Timelines', array('add', 'editSelf', 'querySelf', 'itemsSelf', 'deleteSelf', 'showNotPublic'));
-        $acl->allow(array('super', 'admin', 'contributor', 'researcher'), 'TimelineJS_Timelines', array('edit', 'query', 'items', 'delete'), new Omeka_Acl_Assert_Ownership);
+        $acl->allow('researcher', 'Timeline_Timelines', 'showNotPublic');
+        $acl->allow('contributor', 'Timeline_Timelines', array('add', 'editSelf', 'querySelf', 'itemsSelf', 'deleteSelf', 'showNotPublic'));
+        $acl->allow(array('super', 'admin', 'contributor', 'researcher'), 'Timeline_Timelines', array('edit', 'query', 'items', 'delete'), new Omeka_Acl_Assert_Ownership);
 
     }
 
     public function hookDefineRoutes($args)
     {
         $router = $args['router'];
-        $actionRoute = new Zend_Controller_Router_Route('timeline-js/timelines/:action/:id',
+        $actionRoute = new Zend_Controller_Router_Route('timeline/:action/:id',
                         array(
-                            'module'        => 'timeline-js',
+                            'module'        => 'timeline',
                             'controller'    => 'timelines'
                             ),
                         array('id'          => '\d+'));
         $router->addRoute('timelinesAction', $actionRoute);
 
-        $defaultRoute = new Zend_Controller_Router_Route('timeline-js/timelines/:action',
+        $defaultRoute = new Zend_Controller_Router_Route('timeline/:action',
                         array(
-                            'module'        => 'timeline-js',
+                            'module'        => 'timeline',
                             'controller'    => 'timelines'
                             ),
                         );
         $router->addRoute('timelinesDefault', $defaultRoute);
 
-        $redirectRoute = new Zend_Controller_Router_Route('timeline-js',
+        $redirectRoute = new Zend_Controller_Router_Route('timeline',
                         array(
-                            'module'        => 'timeline-js',
+                            'module'        => 'timeline',
                             'controller'    => 'timelines',
                             'action'        => 'browse'
                             ),
                         );
         $router->addRoute('timelinesRedirect', $redirectRoute);
 
-        $pageRoute = new Zend_Controller_Router_Route('timeline-js/timelines/:page',
+        $pageRoute = new Zend_Controller_Router_Route('timeline/:page',
                         array(
-                            'module'        => 'timeline-js',
+                            'module'        => 'timeline',
                             'controller'    => 'timelines',
                             'action'        => 'browse',
                             'page'          => '1'
@@ -154,7 +154,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookAdminAppendToPluginUninstallMessage()
     {
-        $string = __('<strong>Warning</strong>: Uninstalling the TimelineJS plugin
+        $string = __('<strong>Warning</strong>: Uninstalling the Timeline plugin
           will remove all Timeline records.');
 
         echo '<p>'.$string.'</p>';
@@ -163,7 +163,7 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
 
     /**
      * Filter the items_browse_sql to return only items that have a non-empty
-     * value for the chosen date field, when using the timelinejs-json context.
+     * value for the chosen date field, when using the timeline-json context.
      * Uses the ItemSearch model (models/ItemSearch.php) to add the check for
      * a non-empty DC:Date.
      *
@@ -173,9 +173,9 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
     {
 
         $context = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch')->getCurrentContext();
-        if ($context == 'timelinejs-json') {
+        if ($context == 'timeline-json') {
             $search = new ItemSearch($select);
-            $newParams[0]['element_id'] = timelinejs_get_option('item_date');
+            $newParams[0]['element_id'] = timeline_get_option('item_date');
             $newParams[0]['type'] = 'is not empty';
             $search->advanced($newParams);
         }
@@ -194,9 +194,9 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
     {
 
         $nav[] = array(
-            'label' => __('TimelineJS'),
-            'uri' => url('timeline-js'),
-            'resource' => 'TimelineJS_Timelines',
+            'label' => __('Timeline'),
+            'uri' => url('timeline'),
+            'resource' => 'Timeline_Timelines',
             'privilege' => 'browse'
         );
         return $nav;
@@ -215,8 +215,8 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
     {
 
         $nav[] = array(
-            'label' => __('TimelineJS'),
-            'uri' => url('timeline-js')
+            'label' => __('Timeline'),
+            'uri' => url('timeline')
         );
         return $nav;
 
@@ -230,9 +230,9 @@ class TimelineJSPlugin extends Omeka_Plugin_AbstractPlugin
      */
     public function filterExhibitLayouts($layouts)
     {
-        $layouts['timelinejs'] = array(
-            'name' => __('TimelineJS'),
-            'description' => __('Embed a TimelineJS timeline.')
+        $layouts['timeline'] = array(
+            'name' => __('Timeline'),
+            'description' => __('Embed a Timeline timeline.')
         );
         return $layouts;
     }

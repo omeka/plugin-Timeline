@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Table for TimelineJS objects.
+ * Table for Timeline objects.
  *
- * @package TimelineJS
+ * @package Timeline
  * @subpackage Models
  */
-class TimelineJSTable extends Omeka_Db_Table {
+class TimelineTable extends Omeka_Db_Table {
 
     /**
      * Filter public/not public timelines.
@@ -20,9 +20,9 @@ class TimelineJSTable extends Omeka_Db_Table {
         $isPublic = (bool) $isPublic;
 
         if ($isPublic) {
-            $select->where('timeline_js.public = 1');
+            $select->where('timelines.public = 1');
         } else {
-            $select->where('timeline_js.public = 0');
+            $select->where('timelines.public = 0');
         }
     }
 
@@ -37,9 +37,9 @@ class TimelineJSTable extends Omeka_Db_Table {
         $isFeatured = (bool) $isFeatured;
 
         if ($isFeatured) {
-            $select->where('timeline_js.featured = 1');
+            $select->where('timelines.featured = 1');
         } else {
-            $select->where('timeline_js.featured = 0');
+            $select->where('timelines.featured = 0');
         }
     }
 
@@ -54,7 +54,7 @@ class TimelineJSTable extends Omeka_Db_Table {
         $userId = (int) $userId;
 
         if ($userId) {
-            $select->where('timeline_js.creator_id = ?', $userId);
+            $select->where('timelines.creator_id = ?', $userId);
         }
     }
 
@@ -97,14 +97,14 @@ class TimelineJSTable extends Omeka_Db_Table {
             $this->orderSelectByRandom($select);
         }
 
-        $select->group("timeline_js.id");
+        $select->group("timelines.id");
     }
 
     public function getSelect()
     {
         $select = parent::getSelect();
-        $permissions = new Omeka_Db_Select_PublicPermissions('TimelineJS_Timelines');
-        $permissions->apply($select, 'timeline_js', null);
+        $permissions = new Omeka_Db_Select_PublicPermissions('Timeline_Timelines');
+        $permissions->apply($select, 'timelines', null);
         return $select;
     }
 
@@ -116,8 +116,8 @@ class TimelineJSTable extends Omeka_Db_Table {
     public function _getColumnPairs()
     {
         return array(
-            'timeline_js.id',
-            'timeline_js.title'
+            'timelines.id',
+            'timelines.title'
         );
     }
 }

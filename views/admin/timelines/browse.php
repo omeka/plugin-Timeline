@@ -1,17 +1,17 @@
 <?php
 /**
- * The browse view for the TimelineJS administrative panel.
+ * The browse view for the Timeline administrative panel.
  */
 
 $head = array('bodyclass' => 'timelines primary', 
-              'title' => html_escape(__('TimelineJS | Browse Timelines')));
+              'title' => html_escape(__('Timeline | Browse Timelines')));
 echo head($head);
 ?>
 <?php echo flash(); ?>
 <?php if ($total_results) : ?>
 <?php echo pagination_links(); ?>
-<?php if (is_allowed('TimelineJS_Timelines', 'add')): ?>
-    <a href="<?php echo html_escape(url('timeline-js/timelines/add')); ?>" class="add full-width-mobile button green">
+<?php if (is_allowed('Timeline_Timelines', 'add')): ?>
+    <a href="<?php echo html_escape(url('timeline/timelines/add')); ?>" class="add full-width-mobile button green">
         <?php echo __('Add a Timeline'); ?>
     </a>
 <?php endif; ?>
@@ -23,7 +23,7 @@ echo head($head);
         </tr>
     </thead>
     <tbody id="types-table-body">
-        <?php foreach (loop('TimelineJS') as $timeline): ?>
+        <?php foreach (loop('Timeline') as $timeline): ?>
         <tr>
             <td class="timeline-title title">
                 <?php echo link_to($timeline, 'show', $timeline->title); ?>
@@ -48,6 +48,6 @@ echo head($head);
 <?php echo pagination_links(); ?>
 
 <?php else : ?>
-    <p><?php echo __('There are no timelines.'); ?> <?php if (is_allowed('TimelineJS_Timelines', 'add')): ?><a href="<?php echo html_escape(url('timeline-js/timelines/add')); ?>"><?php echo __('Add a Timeline'); ?>.</a><?php endif; ?></p>
+    <p><?php echo __('There are no timelines.'); ?> <?php if (is_allowed('Timeline_Timelines', 'add')): ?><a href="<?php echo html_escape(url('timeline/timelines/add')); ?>"><?php echo __('Add a Timeline'); ?>.</a><?php endif; ?></p>
 <?php endif; ?>
 <?php echo foot(); ?>

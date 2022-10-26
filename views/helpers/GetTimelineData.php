@@ -1,10 +1,10 @@
 <?php
 
 /**
- * TimelineJS view timeline data helper.
+ * Timeline view timeline data helper.
  *
  */
-class TimelineJS_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
+class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
 {
     /**
      * Minimum and maximum years.

@@ -1,11 +1,11 @@
 <?php
 /**
- * The show view for the TimelineJS administrative panel.
+ * The show view for the Timeline administrative panel.
  */
 
-$timelineTitle = metadata($timelinejs, 'title');
+$timelineTitle = metadata($timeline, 'title');
 $head = array('bodyclass' => 'timelines primary',
-              'title' => __('TimelineJS | %s', strip_formatting($timelineTitle))
+              'title' => __('Timeline | %s', strip_formatting($timelineTitle))
               );
 echo head($head);
 ?>
@@ -13,10 +13,10 @@ echo head($head);
 <div id="primary" class="seven columns alpha">
 
     <!-- Construct the timeline. -->
-    <?php echo $this->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timelinejs)); ?>
+    <?php echo $this->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timeline)); ?>
 
 <?php
-$query = isset($timelinejs->query) ? unserialize($timelinejs->query): [];
+$query = isset($timeline->query) ? unserialize($timeline->query): [];
 if ($query && is_array($query)) {
 ?>
         <h2><?php echo __('Items Query'); ?></h2>
@@ -29,12 +29,12 @@ echo item_search_filters($query);
 
 <div class="three columns omega">
 <div id="edit" class="panel">
-<?php if (is_allowed($timelinejs, 'edit')): ?>
-    <?php echo link_to($timelinejs, 'edit', __('Edit Metadata'), array('class' => 'big green button')); ?>
-    <?php echo link_to($timelinejs, 'query', __('Edit Items Query'), array('class' => 'big green button')); ?>
+<?php if (is_allowed($timeline, 'edit')): ?>
+    <?php echo link_to($timeline, 'edit', __('Edit Metadata'), array('class' => 'big green button')); ?>
+    <?php echo link_to($timeline, 'query', __('Edit Items Query'), array('class' => 'big green button')); ?>
 <?php endif; ?>
-<a href="<?php echo html_escape(public_url('timeline-js/timelines/show/'.timelinejs('id', null, $timelinejs))); ?>" class="big blue button"><?php echo __('View Public Page'); ?></a>
-<?php echo link_to($timelinejs, 'delete-confirm', __('Delete'), array('class' => 'delete-confirm big red button')); ?>
+<a href="<?php echo html_escape(public_url('timeline/show/'.timeline_field('id', null, $timeline))); ?>" class="big blue button"><?php echo __('View Public Page'); ?></a>
+<?php echo link_to($timeline, 'delete-confirm', __('Delete'), array('class' => 'delete-confirm big red button')); ?>
 </div>
 </div>
 <?php echo foot(); ?>

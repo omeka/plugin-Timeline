@@ -1,8 +1,8 @@
 <?php
 /**
- * Form for creating TimelineJS timelines.
+ * Form for creating Timeline timelines.
  */
-class TimelineJS_Form_Timeline extends Omeka_Form
+class Timeline_Form_Timeline extends Omeka_Form
 {
     public function init()
     {

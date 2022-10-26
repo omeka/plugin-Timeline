@@ -2,21 +2,21 @@
 /**
  * Timelines Controller
  */
-class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionController
+class Timeline_TimelinesController extends Omeka_Controller_AbstractActionController
 {
     /**
      * Initialization
      */
     public function init()
     {
-        $this->_helper->db->setDefaultModelName('TimelineJS');
+        $this->_helper->db->setDefaultModelName('Timeline');
         $this->_browseRecordsPerPage = get_option('per_page_admin');
     }
 
     public function addAction()
     {
-        require_once TIMELINE_JS_FORMS_DIR . '/timeline.php';
-        $form = new TimelineJS_Form_Timeline;
+        require_once TIMELINE_FORMS_DIR . '/timeline.php';
+        $form = new Timeline_Form_Timeline;
         $form->setDefaults(array('item_date' => '40',
                                  'item_interval' => '38',
                                  'item_title' => '50',
@@ -34,8 +34,8 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
     {
         $timeline = $this->_helper->db->findById();
     
-        require_once TIMELINE_JS_FORMS_DIR . '/timeline.php';
-        $form = new TimelineJS_Form_Timeline;
+        require_once TIMELINE_FORMS_DIR . '/timeline.php';
+        $form = new Timeline_Form_Timeline;
         $form->setDefaults(array('title' => $timeline->title, 
                                  'description' => $timeline->description,
                                  'public' => $timeline->public,
@@ -68,7 +68,7 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
             $_REQUEST = $queryArray;
         }
 
-        $this->view->timelinejs = $timeline;
+        $this->view->timeline = $timeline;
     }
     
     public function showAction()
@@ -81,7 +81,7 @@ class TimelineJS_TimelinesController extends Omeka_Controller_AbstractActionCont
             $items = [];
         }
 
-        $this->view->timelinejs = $timeline;
+        $this->view->timeline = $timeline;
         $this->view->items = $items;
     }
 

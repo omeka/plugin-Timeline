@@ -1,4 +1,4 @@
-# TimelineJS
+# Timeline
 Create [TimelineJS](https://timeline.knightlab.com) timelines accessible via ExhibitBuilder blocks or shortcode.
 
 ## Installation

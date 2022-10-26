@@ -1,10 +1,10 @@
 <?php
 /**
- * The edit view for the TimelineJS administrative panel.
+ * The edit view for the Timeline administrative panel.
  */
 
-$timelineTitle = timelinejs('title') ? strip_formatting(timelinejs('title')) : '[Untitled]';
-$title = __('TimelineJS | Edit "%s" Metadata', $timelineTitle);
+$timelineTitle = timeline_field('title') ? strip_formatting(timeline_field('title')) : '[Untitled]';
+$title = __('Timeline | Edit "%s" Metadata', $timelineTitle);
 $head = array('bodyclass' => 'timelines primary',
               'title' => html_escape($title));
 echo head($head);

@@ -1,10 +1,10 @@
 <?php
 /**
- * The add view for the TimelineJS administrative panel.
+ * The add view for the Timeline administrative panel.
  */
 
 $head = array('bodyclass' => 'timelines primary', 
-              'title' => html_escape(__('TimelineJS | Add a Timeline')));
+              'title' => html_escape(__('Timeline | Add a Timeline')));
 echo head($head);
 ?>
 

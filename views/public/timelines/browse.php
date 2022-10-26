@@ -1,6 +1,6 @@
 <?php
 /**
- * The public browse view for TimelineJS.
+ * The public browse view for Timeline.
  */
  
 $head = array('bodyclass' => 'timelines primary',
@@ -11,7 +11,7 @@ echo head($head);
 <div class="timelines">
 <h1><?php echo __('Browse Timelines'); ?></h1>
     <?php if ($total_results) : ?>
-    <?php foreach (loop('TimelineJS') as $timeline): ?>
+    <?php foreach (loop('Timeline') as $timeline): ?>
     <div class="timeline">
         <h2><?php echo link_to($timeline, 'show', $timeline->title); ?></h2>
         <?php echo snippet_by_word_count(metadata($timeline, 'description'), '10'); ?>

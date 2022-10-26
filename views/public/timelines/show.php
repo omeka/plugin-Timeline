@@ -4,15 +4,15 @@
  */
 
 $head = array('bodyclass' => 'timelines primary',
-              'title' => metadata($timelinejs, 'title')
+              'title' => metadata($timeline, 'title')
               );
 echo head($head);
 ?>
-<h1><?php echo metadata($timelinejs, 'title'); ?></h1>
+<h1><?php echo metadata($timeline, 'title'); ?></h1>
 
     <!-- Construct the timeline. -->
-    <?php echo $this->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timelinejs)); ?>
+    <?php echo $this->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timeline)); ?>
 
-    <?php echo metadata($timelinejs, 'description'); ?>
+    <?php echo metadata($timeline, 'description'); ?>
 
 <?php echo foot(); ?>

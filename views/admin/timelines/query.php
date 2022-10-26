@@ -3,8 +3,8 @@
  * The edit query view for a specific Timeline.
  */
 
-$timelineTitle = metadata($timelinejs, 'title');
-$title = __('TimelineJS | Edit "%s" Items Query', strip_formatting($timelineTitle));
+$timelineTitle = metadata($timeline, 'title');
+$title = __('Timeline | Edit "%s" Items Query', strip_formatting($timelineTitle));
 $head = array('bodyclass' => 'timelines primary', 'title' => $title);
 echo head($head);
 ?>
@@ -14,7 +14,7 @@ echo head($head);
     });
 </script>
     <?php
-$query = isset($timelinejs->query) ? unserialize($timelinejs->query): [];
+$query = isset($timeline->query) ? unserialize($timeline->query): [];
 if ($query && is_array($query)) {
 ?>
     <p><strong><?php echo __('The &#8220;%s&#8221; timeline displays items that match the following query:', $timelineTitle) ?></strong></p>
