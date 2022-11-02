@@ -31,7 +31,7 @@ echo item_search_filters($query);
 <div id="edit" class="panel">
 <?php if (is_allowed($timeline, 'edit')): ?>
     <?php echo link_to($timeline, 'edit', __('Edit Metadata'), array('class' => 'big green button')); ?>
-    <?php echo link_to($timeline, 'query', __('Edit Items Query'), array('class' => 'big green button')); ?>
+    <?php echo link_to($timeline, 'query', __('Edit Item Query'), array('class' => 'big green button')); ?>
 <?php endif; ?>
 <a href="<?php echo html_escape(public_url('timeline/show/'.timeline_field('id', null, $timeline))); ?>" class="big blue button"><?php echo __('View Public Page'); ?></a>
 <?php echo link_to($timeline, 'delete-confirm', __('Delete'), array('class' => 'delete-confirm big red button')); ?>
