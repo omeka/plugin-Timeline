@@ -1,0 +1,3 @@
+button.tl-slidenav-next:active, button.tl-slidenav-previous:active {
+    z-index: 10;
+}
