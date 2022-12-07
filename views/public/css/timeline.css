@@ -1,3 +1,23 @@
+button.tl-slidenav-next, button.tl-slidenav-previous {
+    height: unset !important;
+    top: 150px !important;
+}
 button.tl-slidenav-next:active, button.tl-slidenav-previous:active {
     z-index: 10;
+}
+body {
+    word-wrap: unset !important;
+}
+#content > div, #content section {
+    padding: 12px 0px !important;
+}
+.tl-layout-landscape {
+    height: unset !important;
+}
+.tl-menubar-button {
+    background-color: rgba(242, 242, 242, 0.9) !important;
+    height: unset !important;
+}
+.tl-menubar-button:hover, .tl-menubar-button:focus-visible {
+    background-color: #333 !important;
 }
