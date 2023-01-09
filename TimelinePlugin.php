@@ -233,7 +233,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
     {
         $layouts['timeline'] = array(
             'name' => __('Timeline'),
-            'description' => __('Embed a Timeline timeline.')
+            'description' => __('Embed a timeline.')
         );
         return $layouts;
     }
