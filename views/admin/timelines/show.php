@@ -33,7 +33,7 @@ echo item_search_filters($query);
     <?php echo link_to($timeline, 'edit', __('Edit Metadata'), array('class' => 'big green button')); ?>
     <?php echo link_to($timeline, 'query', __('Edit Item Query'), array('class' => 'big green button')); ?>
 <?php endif; ?>
-<a href="<?php echo html_escape(public_url('timeline/show/'.timeline_field('id', null, $timeline))); ?>" class="big blue button" target="_blank"><?php echo __('View Public Page'); ?></a>
+<a href="<?php echo html_escape(public_url('timeline/show/' . metadata($timeline, 'id'))); ?>" class="big blue button" target="_blank"><?php echo __('View Public Page'); ?></a>
 <?php echo link_to($timeline, 'delete-confirm', __('Delete'), array('class' => 'delete-confirm big red button')); ?>
 </div>
 </div>

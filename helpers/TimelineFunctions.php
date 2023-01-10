@@ -4,23 +4,6 @@
  */
 
 /**
- * Return specific field for a timeline record.
- *
- * @param string
- * @param array $options
- * @param TimelineTimeline|null
- * @return string
- */
-function timeline_field($fieldname, $options = array(), $timeline = null)
-{
-
-    $timeline = $timeline ? $timeline : get_current_record('Timeline');
-
-    return metadata($timeline, $fieldname, $options);
-
-}
-
-/**
  * Returns a link to a specific timeline.
  *
  * @param string HTML for the text of the link.
