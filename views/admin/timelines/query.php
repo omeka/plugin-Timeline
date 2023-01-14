@@ -4,7 +4,7 @@
  */
 
 $timelineTitle = metadata($timeline, 'title');
-$title = __('Timeline | Edit "%s" Items Query', strip_formatting($timelineTitle));
+$title = __('Timeline | Edit "%s" Items Query', $timelineTitle);
 $head = array('bodyclass' => 'timelines primary', 'title' => $title);
 echo head($head);
 ?>

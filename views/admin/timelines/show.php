@@ -5,7 +5,7 @@
 
 $timelineTitle = metadata($timeline, 'title');
 $head = array('bodyclass' => 'timelines primary',
-              'title' => __('Timeline | %s', strip_formatting($timelineTitle))
+              'title' => __('Timeline | %s', $timelineTitle)
               );
 echo head($head);
 ?>

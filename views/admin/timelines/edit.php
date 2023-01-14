@@ -3,7 +3,7 @@
  * The edit view for the Timeline administrative panel.
  */
 
-$timelineTitle = metadata($timeline, 'title') ? strip_formatting(metadata($timeline, 'title')) : '[Untitled]';
+$timelineTitle = metadata($timeline, 'title') ? metadata($timeline, 'title') : '[Untitled]';
 $title = __('Timeline | Edit "%s" Metadata', $timelineTitle);
 $head = array('bodyclass' => 'timelines primary',
               'title' => html_escape($title));
