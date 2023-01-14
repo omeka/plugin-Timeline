@@ -4,26 +4,6 @@
  */
 
 /**
- * Returns a link to a specific timeline.
- *
- * @param string HTML for the text of the link.
- * @param array Attributes for the <a> tag. (optional)
- * @param string The action for the link. Default is 'show'.
- * @param TimelineTimeline|null
- * @return string HTML
- **/
-function link_to_timelinejs($text = null, $props = array(), $action = 'show', $timeline = null)
-{
-
-    $timeline = $timeline ? $timeline : get_current_record('Timeline');
-
-    $text = $text ? $text : $timeline->title;
-
-    return link_to($timeline, $action, $text, $props);
-
-}
-
-/**
  * Construct id for container div.
  *
  * @since 1.0
