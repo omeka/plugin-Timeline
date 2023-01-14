@@ -32,7 +32,6 @@ function timeline_shortcode($args, $view)
     if (!$timeline) {
         return;
     }
-
     if (isset($timeline->query)) {
         $items = get_db()->getTable('Item')->findBy(unserialize($timeline->query), null);
     } else {

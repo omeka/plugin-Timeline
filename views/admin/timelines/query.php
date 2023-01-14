@@ -21,7 +21,6 @@ if ($query && is_array($query)) {
 <?php
     echo item_search_filters($query);
 }
-// echo items_search_form(array(), current_url());
 
 echo $this->partial('items/search-form.php',
     array(

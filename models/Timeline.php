@@ -1,6 +1,6 @@
 <?php
 /**
- * TImelineJS record.
+ * TimelineJS record.
  */
 class Timeline extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_Interface
 {

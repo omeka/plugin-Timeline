@@ -79,18 +79,15 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
             ";
 
         $db->query($sql);
-
     }
 
     public function hookUninstall()
     {
-
         $db = get_db();
         $sql = "DROP TABLE IF EXISTS `$db->Timeline`";
         $db->query($sql);
 
         delete_option('timeline');
-
     }
 
     public function hookInitialize()
@@ -102,12 +99,10 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
     public function hookDefineAcl($args)
     {
         $acl = $args['acl'];
-
         $acl->addResource('Timeline_Timelines');
 
         // Allow everyone access to browse, show, and items.
         $acl->allow(null, 'Timeline_Timelines', array('show', 'browse', 'items'));
-
         $acl->allow('researcher', 'Timeline_Timelines', 'showNotPublic');
         $acl->allow('contributor', 'Timeline_Timelines', array('add', 'editSelf', 'querySelf', 'itemsSelf', 'deleteSelf', 'showNotPublic'));
         $acl->allow(array('super', 'admin', 'contributor', 'researcher'), 'Timeline_Timelines', array('edit', 'query', 'items', 'delete'), new Omeka_Acl_Assert_Ownership);
@@ -118,38 +113,38 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
     {
         $router = $args['router'];
         $actionRoute = new Zend_Controller_Router_Route('timeline/:action/:id',
-                        array(
-                            'module'        => 'timeline',
-                            'controller'    => 'timelines'
-                            ),
-                        array('id'          => '\d+'));
+            array(
+                'module'        => 'timeline',
+                'controller'    => 'timelines'
+                ),
+            array('id'          => '\d+'));
         $router->addRoute('timelinesAction', $actionRoute);
 
         $defaultRoute = new Zend_Controller_Router_Route('timeline/:action',
-                        array(
-                            'module'        => 'timeline',
-                            'controller'    => 'timelines'
-                            ),
-                        );
+            array(
+                'module'        => 'timeline',
+                'controller'    => 'timelines'
+                ),
+            );
         $router->addRoute('timelinesDefault', $defaultRoute);
 
         $redirectRoute = new Zend_Controller_Router_Route('timeline',
-                        array(
-                            'module'        => 'timeline',
-                            'controller'    => 'timelines',
-                            'action'        => 'browse'
-                            ),
-                        );
+            array(
+                'module'        => 'timeline',
+                'controller'    => 'timelines',
+                'action'        => 'browse'
+                ),
+            );
         $router->addRoute('timelinesRedirect', $redirectRoute);
 
         $pageRoute = new Zend_Controller_Router_Route('timeline/:page',
-                        array(
-                            'module'        => 'timeline',
-                            'controller'    => 'timelines',
-                            'action'        => 'browse',
-                            'page'          => '1'
-                            ),
-                        array('page'          => '\d+'));
+            array(
+                'module'        => 'timeline',
+                'controller'    => 'timelines',
+                'action'        => 'browse',
+                'page'          => '1'
+                ),
+            array('page'        => '\d+'));
         $router->addRoute('timelinesPagination', $pageRoute);
     }
 
@@ -159,7 +154,6 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
           will remove all Timeline records.');
 
         echo '<p>'.$string.'</p>';
-
     }
 
     /**
@@ -172,7 +166,6 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
      */
     public function hookItemBrowseSql()
     {
-
         $context = Zend_Controller_Action_HelperBroker::getStaticHelper('ContextSwitch')->getCurrentContext();
         if ($context == 'timeline-json') {
             $search = new ItemSearch($select);
@@ -180,7 +173,6 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
             $newParams[0]['type'] = 'is not empty';
             $search->advanced($newParams);
         }
-
     }
 
     /**
@@ -193,7 +185,6 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
      */
     public function filterAdminNavigationMain($nav)
     {
-
         $nav[] = array(
             'label' => __('Timeline'),
             'uri' => url('timeline'),
@@ -201,7 +192,6 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
             'privilege' => 'browse'
         );
         return $nav;
-
     }
 
     /**
@@ -214,13 +204,11 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
      */
     public function filterPublicNavigationMain($nav)
     {
-
         $nav[] = array(
             'label' => __('Timeline'),
             'uri' => url('timeline')
         );
         return $nav;
-
     }
 
     /**
