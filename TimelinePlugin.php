@@ -101,11 +101,11 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
         $acl = $args['acl'];
         $acl->addResource('Timeline_Timelines');
 
-        // Allow everyone access to browse, show, and items.
-        $acl->allow(null, 'Timeline_Timelines', array('show', 'browse', 'items'));
+        // Allow everyone access to browse and show.
+        $acl->allow(null, 'Timeline_Timelines', array('show', 'browse'));
         $acl->allow('researcher', 'Timeline_Timelines', 'showNotPublic');
-        $acl->allow('contributor', 'Timeline_Timelines', array('add', 'editSelf', 'querySelf', 'itemsSelf', 'deleteSelf', 'showNotPublic'));
-        $acl->allow(array('super', 'admin', 'contributor', 'researcher'), 'Timeline_Timelines', array('edit', 'query', 'items', 'delete'), new Omeka_Acl_Assert_Ownership);
+        $acl->allow('contributor', 'Timeline_Timelines', array('add', 'editSelf', 'querySelf', 'deleteSelf', 'showNotPublic'));
+        $acl->allow(array('super', 'admin', 'contributor', 'researcher'), 'Timeline_Timelines', array('edit', 'query', 'delete'), new Omeka_Acl_Assert_Ownership);
 
     }
 
