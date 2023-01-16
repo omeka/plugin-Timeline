@@ -10,7 +10,6 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
     public function init()
     {
         $this->_helper->db->setDefaultModelName('Timeline');
-        $this->_browseRecordsPerPage = get_option('per_page_admin');
     }
 
     public function addAction()
