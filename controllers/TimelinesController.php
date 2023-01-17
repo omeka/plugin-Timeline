@@ -4,6 +4,8 @@
  */
 class Timeline_TimelinesController extends Omeka_Controller_AbstractActionController
 {
+    protected $_autoCsrfProtection = true;
+    
     /**
      * Initialization
      */
@@ -51,8 +53,14 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
 
     public function queryAction()
     {
+        $csrf = new Omeka_Form_SessionCsrf;
+        $this->view->csrf = $csrf;
+
         $timeline = $this->_helper->db->findById();
 
+        if (!$csrf->isValid($_GET)) {
+            $this->_helper->_flashMessenger(__('There was an error on the form. Please try again.'), 'error');
+        }
         if(isset($_GET['search'])) {
             $timeline->query = $_GET;
             $timeline->save();

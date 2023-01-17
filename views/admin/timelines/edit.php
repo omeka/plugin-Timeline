@@ -16,6 +16,7 @@ echo flash();
 <?php echo $form->getDisplayGroup('timeline_info'); ?>
 </div>
 
+<?php echo $csrf; ?>
 <div class="three columns omega">
 <div id="edit" class="panel">
 <input type="submit" name="submit" id="submit" value="Save Timeline" class="big green button">

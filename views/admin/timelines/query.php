@@ -22,11 +22,12 @@ if ($query && is_array($query)) {
     echo item_search_filters($query);
 }
 
-echo $this->partial('items/search-form.php',
-    array(
-        'formAttributes' => array('id'=>'advanced-search-form'),
-        'formActionUri' => current_url(),
-        'useSidebar' => true
-    )
+$formArgs = array(
+    'formAttributes' => array('id'=>'advanced-search-form'), 
+    'formActionUri' => current_url(),
+    'useSidebar' => true
 );
+$formArgs['csrf'] = isset($csrf) ? $csrf : '';
+echo $this->partial('items/search-form.php', $formArgs);
 echo foot();
+?>
