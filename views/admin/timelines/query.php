@@ -7,6 +7,7 @@ $timelineTitle = metadata($timeline, 'title');
 $title = __('Timeline | Edit "%s" Items Query', $timelineTitle);
 $head = array('bodyclass' => 'timelines primary', 'title' => $title);
 echo head($head);
+echo flash();
 ?>
 <script type="text/javascript" charset="utf-8">
     jQuery(window).load(function(){
@@ -27,7 +28,8 @@ $formArgs = array(
     'formActionUri' => current_url(),
     'useSidebar' => true
 );
-$formArgs['csrf'] = isset($csrf) ? $csrf : '';
-echo $this->partial('items/search-form.php', $formArgs);
+
+// Insert CSRF token
+echo str_replace('</form>', $csrf . '</form>', $this->partial('items/search-form.php', $formArgs));
 echo foot();
 ?>

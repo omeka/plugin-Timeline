@@ -8,6 +8,7 @@ $head = array('bodyclass' => 'timelines primary',
               'title' => __('Timeline | %s', $timelineTitle)
               );
 echo head($head);
+echo flash();
 ?>
 
 <div id="primary" class="seven columns alpha">

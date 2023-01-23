@@ -58,21 +58,22 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
 
         $timeline = $this->_helper->db->findById();
 
-        if (!$csrf->isValid($_GET)) {
-            $this->_helper->_flashMessenger(__('There was an error on the form. Please try again.'), 'error');
-        }
-        if(isset($_GET['search'])) {
-            $timeline->query = $_GET;
-            $timeline->save();
-            $this->_helper->flashMessenger($this->_getEditSuccessMessage($timeline), 'success');
-            $this->_helper->redirector->gotoRoute(array('action' => 'show'));
-        }
-        else {
-            $queryArray = unserialize($timeline->query);
-            // Some parts of the advanced search check $_GET, others check
-            // $_REQUEST, so we set both to be able to edit a previous query.
-            $_GET = $queryArray;
-            $_REQUEST = $queryArray;
+        if(!empty($_GET)) {
+            if (!$csrf->isValid($_GET)) {
+                $this->_helper->_flashMessenger(__('There was an error on the form. Please try again.'), 'error');
+            } else if (isset($_GET['search'])) {
+                $timeline->query = $_GET;
+                unset($timeline->query['csrf_token']);
+                $timeline->save();
+                $this->_helper->flashMessenger($this->_getEditSuccessMessage($timeline), 'success');
+                $this->_helper->redirector->gotoRoute(array('action' => 'show'));
+            } else {
+                $queryArray = unserialize($timeline->query);
+                // Some parts of the advanced search check $_GET, others check
+                // $_REQUEST, so we set both to be able to edit a previous query.
+                $_GET = $queryArray;
+                $_REQUEST = $queryArray;
+            }
         }
 
         $this->view->timeline = $timeline;
