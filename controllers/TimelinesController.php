@@ -68,7 +68,7 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
                 $this->_helper->flashMessenger($this->_getEditSuccessMessage($timeline), 'success');
                 $this->_helper->redirector->gotoRoute(array('action' => 'show'));
             } else {
-                $queryArray = unserialize($timeline->query);
+                $queryArray = unserialize((string)$timeline->query);
                 // Some parts of the advanced search check $_GET, others check
                 // $_REQUEST, so we set both to be able to edit a previous query.
                 $_GET = $queryArray;
