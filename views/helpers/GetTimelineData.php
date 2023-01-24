@@ -259,28 +259,28 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
 
         // Validate ranges of the datetime component.
         if ((self::YEAR_MIN > $dateTime['year']) || (self::YEAR_MAX < $dateTime['year'])) {
-            throw new InvalidArgumentException(sprintf('Invalid year: %s', $dateTime['year']));
+            return;
         }
         if ((1 > $dateTime['month_normalized']) || (12 < $dateTime['month_normalized'])) {
-            throw new InvalidArgumentException(sprintf('Invalid month: %s', $dateTime['month_normalized']));
+            return;
         }
         if ((1 > $dateTime['day_normalized']) || (31 < $dateTime['day_normalized'])) {
-            throw new InvalidArgumentException(sprintf('Invalid day: %s', $dateTime['day_normalized']));
+            return;
         }
         if ((0 > $dateTime['hour_normalized']) || (23 < $dateTime['hour_normalized'])) {
-            throw new InvalidArgumentException(sprintf('Invalid hour: %s', $dateTime['hour_normalized']));
+            return;
         }
         if ((0 > $dateTime['minute_normalized']) || (59 < $dateTime['minute_normalized'])) {
-            throw new InvalidArgumentException(sprintf('Invalid minute: %s', $dateTime['minute_normalized']));
+            return;
         }
         if ((0 > $dateTime['second_normalized']) || (59 < $dateTime['second_normalized'])) {
-            throw new InvalidArgumentException(sprintf('Invalid second: %s', $dateTime['second_normalized']));
+            return;
         }
         if ((-23 > $dateTime['offset_hour_normalized']) || (23 < $dateTime['offset_hour_normalized'])) {
-            throw new InvalidArgumentException(sprintf('Invalid hour offset: %s', $dateTime['offset_hour_normalized']));
+            return;
         }
         if ((0 > $dateTime['offset_minute_normalized']) || (59 < $dateTime['offset_minute_normalized'])) {
-            throw new InvalidArgumentException(sprintf('Invalid minute offset: %s', $dateTime['offset_minute_normalized']));
+            return;
         }
 
         // Set the ISO 8601 format and render format.
