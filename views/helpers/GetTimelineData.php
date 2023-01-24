@@ -36,11 +36,6 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
     const PATTERN_ISO8601 = '^(?<date>(?<year>-?\d{4,})(-(?<month>\d{2}))?(-(?<day>\d{2}))?)(?<time>(T(?<hour>\d{2}))?(:(?<minute>\d{2}))?(:(?<second>\d{2}))?)(?<offset>((?<offset_hour>[+-]\d{2})?(:(?<offset_minute>\d{2}))?)|Z?)$';
     
     /**
-     * @var array Cache of date/times
-     */
-    protected static $dateTimes = [];
-    
-    /**
      * Build data for a timeline.
      *
      * @param stdClass $items
@@ -206,9 +201,6 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
      */
     public static function getDateTimeFromValue($value, $defaultFirst = true)
     {
-        if (isset(self::$dateTimes[$value][$defaultFirst ? 'first' : 'last'])) {
-            return self::$dateTimes[$value][$defaultFirst ? 'first' : 'last'];
-        }
 
         // Match against ISO 8601, allowing for reduced accuracy.
         $isMatch = preg_match(sprintf('/%s/', self::PATTERN_ISO8601), $value, $matches);
@@ -317,7 +309,6 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
             $dateTime['second_normalized']
         );
 
-        self::$dateTimes[$value][$defaultFirst ? 'first' : 'last'] = $dateTime; // Cache the date/time
         return $dateTime;
     }
 
