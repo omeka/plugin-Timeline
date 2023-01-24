@@ -97,9 +97,8 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         $value = null;
         $slideValues = array();
         foreach ($slideProperties as $property_name => $property_id) {
-            try {
-                $property = get_db()->getTable('Element')->find($property_id);
-            } catch (NotFoundException $e) {
+            $property = get_db()->getTable('Element')->find($property_id);
+            if ($property === null) {
                 // Invalid property.
                 continue;
             }
