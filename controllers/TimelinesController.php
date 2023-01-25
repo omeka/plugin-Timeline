@@ -39,6 +39,7 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
         $form = new Timeline_Form_Timeline;
         $form->setDefaults(array('title' => $timeline->title, 
                                  'description' => $timeline->description,
+                                 'font' => $timeline->font,
                                  'public' => $timeline->public,
                                  'item_date' => $timeline->item_date,
                                  'item_interval' => $timeline->item_interval,

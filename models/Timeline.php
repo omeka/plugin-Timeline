@@ -7,6 +7,7 @@ class Timeline extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
 
     public $title;
     public $description;
+    public $font;
     public $item_date;
     public $item_interval;
     public $item_title;

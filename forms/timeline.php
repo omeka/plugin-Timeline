@@ -25,6 +25,34 @@ class Timeline_Form_Timeline extends Omeka_Form
             'attribs'     => array('class' => 'html-editor', 'rows' => '15')
         ));
         
+        // Font styling
+        $this->addElement('select', 'font', array(
+            'label'        => __('Font'),
+            'description'  => __('Customize your timeline font. Choices with two fonts style title & body text, respectively.'),
+            'multiOptions' => array(
+                'default' => 'Default',
+                'abril-droidsans' => 'Abril Fatface & Droid Sans',
+                'amatic-andika' => 'Amatic & Andika',
+                'bevan-pontanosans' => 'Bevan & Pontano Sans',
+                'bitter-raleway' => 'Bitter & Raleway',
+                'clicker-garamond' => 'Clicker & Garamond',
+                'dancing-ledger' => 'Dancing Script & Ledger',
+                'fjalla-average' => 'Fjalla One & Average',
+                'georgia-helvetica' => 'Georgia & Helvetica',
+                'lustria-lato' => 'Lustria & Lato',
+                'medula-lato' => 'Medula One & Lato',
+                'oldstandard' => 'Old Standard',
+                'opensans-gentiumbook' => 'Open Sans & Gentium Book',
+                'playfair-faunaone' => 'Playfair Display & Fauna One',
+                'playfair' => 'Playfair Display',
+                'pt' => 'PT Sans',
+                'roboto-megrim' => 'Roboto & Megrim',
+                'rufina-sintony' => 'Rufina & Sintony',
+                'ubuntu' => 'Ubuntu',
+                'unicaone-vollkorn' => 'Unica One & Vollkorn'
+            )
+        ));
+
         // Item date field
         $this->addElement('select', 'item_date', array(
             'label'       => __('Item date field'),
@@ -83,6 +111,7 @@ class Timeline_Form_Timeline extends Omeka_Form
         $this->addDisplayGroup(
             array('title',
                   'description',
+                  'font',
                   'item_date',
                   'item_interval',
                   'item_title',

@@ -64,6 +64,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
                 `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `title` TINYTEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `description` TEXT COLLATE utf8_unicode_ci DEFAULT NULL,
+                `font` TINYTEXT NOT NULL,
                 `item_date` INT UNSIGNED NOT NULL,
                 `item_interval` INT UNSIGNED NOT NULL,
                 `item_title` INT UNSIGNED NOT NULL,
