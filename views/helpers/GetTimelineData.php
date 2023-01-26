@@ -97,7 +97,12 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                 // Invalid property.
                 continue;
             }
-            $value = metadata($item, [$property->getElementSet()->name, $property->name]);
+            if ($property->name === 'Date' || $property->name === 'Coverage') {
+                // Do not filter date values when enabled in searchByMetadata plugin
+                $value = metadata($item, [$property->getElementSet()->name, $property->name], array('no_filter' => true));
+            } else {
+                $value = metadata($item, [$property->getElementSet()->name, $property->name]);
+            }
             if ($value) {
                 $slideValues[$property_name] = $value;
             }
