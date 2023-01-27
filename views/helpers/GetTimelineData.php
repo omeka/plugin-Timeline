@@ -130,7 +130,7 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
             $event['media'] = [
                 'url' => $file->getProperty('uri'),
                 'thumbnail' => $file->getProperty('thumbnail_uri'),
-                'link' => $itemLink,
+                'link' => record_url($item),
                 'alt' => $file->getProperty('display_title'),
             ];
         }
