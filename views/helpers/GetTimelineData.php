@@ -129,7 +129,8 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         if ($file) {
             // Only give Timelinejs the original file uri if we like how it
             // handles the filetype; otherwise give thumbnail_uri.
-            // Set media thumbnails to null as they don't exist.
+            // Set media thumbnails to null as they don't exist and remove
+            // link to interfere with in-slide playback.
             switch ($file->mime_type) {
                 case 'image/gif':
                 case 'image/jpeg':
@@ -138,6 +139,7 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                 case 'image/x-ms-bmp':
                     $fileURL = $file->getProperty('uri');
                     $thumbnailURL = $file->getProperty('thumbnail_uri');
+                    $linkURL = record_url($item);
                     break;
                 case 'video/mp4':
                 case 'audio/mp3':
@@ -147,16 +149,18 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                 case 'audio/x-wav':
                     $fileURL = $file->getProperty('uri');
                     $thumbnailURL = null;
+                    $linkURL = null;
                     break;
                 default:
                     $fileURL = $file->getProperty('thumbnail_uri');
                     $thumbnailURL = $file->getProperty('thumbnail_uri');
+                    $linkURL = record_url($item);
                     break;
             }
             $event['media'] = [
                 'url' => $fileURL,
                 'thumbnail' => $thumbnailURL,
-                'link' => record_url($item),
+                'link' => $linkURL,
                 'alt' => $file->getProperty('display_title'),
             ];
         }
