@@ -127,9 +127,35 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         // Set the "media" object.
         $file = $item->getFile();
         if ($file) {
+            // Only give Timelinejs the original file uri if we like how it
+            // handles the filetype; otherwise give thumbnail_uri.
+            // Set media thumbnails to null as they don't exist.
+            switch ($file->mime_type) {
+                case 'image/gif':
+                case 'image/jpeg':
+                case 'image/png':
+                case 'image/bmp':
+                case 'image/x-ms-bmp':
+                    $fileURL = $file->getProperty('uri');
+                    $thumbnailURL = $file->getProperty('thumbnail_uri');
+                    break;
+                case 'video/mp4':
+                case 'audio/mp3':
+                case 'audio/mpeg':
+                case 'audio/x-m4a':
+                case 'audio/wav':
+                case 'audio/x-wav':
+                    $fileURL = $file->getProperty('uri');
+                    $thumbnailURL = null;
+                    break;
+                default:
+                    $fileURL = $file->getProperty('thumbnail_uri');
+                    $thumbnailURL = $file->getProperty('thumbnail_uri');
+                    break;
+            }
             $event['media'] = [
-                'url' => $file->getProperty('uri'),
-                'thumbnail' => $file->getProperty('thumbnail_uri'),
+                'url' => $fileURL,
+                'thumbnail' => $thumbnailURL,
                 'link' => record_url($item),
                 'alt' => $file->getProperty('display_title'),
             ];
