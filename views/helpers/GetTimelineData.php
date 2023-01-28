@@ -129,18 +129,16 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
         if ($file) {
             // Only give Timelinejs the original file uri if we like how it
             // handles the filetype; otherwise give thumbnail_uri.
-            // Set media thumbnails to null as they don't exist and remove
-            // link to interfere with in-slide playback.
+            // Remove audio/video link as it interferes with in-slide playback.
             switch ($file->mime_type) {
-                case 'image/gif':
                 case 'image/jpeg':
                 case 'image/png':
                 case 'image/bmp':
                 case 'image/x-ms-bmp':
-                    $fileURL = $file->getProperty('uri');
-                    $thumbnailURL = $file->getProperty('thumbnail_uri');
+                    $fileURL = $file->getProperty('fullsize_uri');
                     $linkURL = record_url($item);
                     break;
+                case 'image/gif':
                 case 'video/mp4':
                 case 'audio/mp3':
                 case 'audio/mpeg':
@@ -148,15 +146,15 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                 case 'audio/wav':
                 case 'audio/x-wav':
                     $fileURL = $file->getProperty('uri');
-                    $thumbnailURL = null;
                     $linkURL = null;
                     break;
                 default:
-                    $fileURL = $file->getProperty('thumbnail_uri');
-                    $thumbnailURL = $file->getProperty('thumbnail_uri');
+                    $fileURL = $file->hasThumbnail() ? $file->getProperty('thumbnail_uri') : null;
                     $linkURL = record_url($item);
                     break;
             }
+            // Only return link for tiny thumbnail if it exists
+            $thumbnailURL = $file->hasThumbnail() ? $file->getProperty('square_thumbnail_uri') : null;
             $event['media'] = [
                 'url' => $fileURL,
                 'thumbnail' => $thumbnailURL,
