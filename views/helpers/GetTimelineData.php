@@ -135,7 +135,7 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                 case 'image/png':
                 case 'image/bmp':
                 case 'image/x-ms-bmp':
-                    $fileURL = $file->getProperty('fullsize_uri');
+                    $fileURL = $file->hasThumbnail() ? $file->getProperty('fullsize_uri') : null;
                     $linkURL = record_url($item);
                     break;
                 case 'image/gif':
