@@ -2,8 +2,8 @@ button.tl-slidenav-next, button.tl-slidenav-previous {
     height: unset !important;
     top: 150px !important;
 }
-button.tl-slidenav-next:active, button.tl-slidenav-previous:active {
-    z-index: 10;
+.tl-slidenav-next, .tl-slidenav-previous {
+    z-index: 10 !important;
 }
 body {
     word-wrap: unset !important;
