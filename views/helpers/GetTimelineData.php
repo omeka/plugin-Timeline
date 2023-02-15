@@ -135,7 +135,7 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                 case 'image/png':
                 case 'image/bmp':
                 case 'image/x-ms-bmp':
-                    $fileURL = $file->hasThumbnail() ? $file->getProperty('fullsize_uri') : null;
+                    $fileURL = $file->hasThumbnail() ? $file->getProperty('fullsize_uri') : '';
                     $linkURL = record_url($item);
                     break;
                 case 'image/gif':
@@ -149,12 +149,12 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                     $linkURL = null;
                     break;
                 default:
-                    $fileURL = $file->hasThumbnail() ? $file->getProperty('thumbnail_uri') : null;
+                    $fileURL = $file->hasThumbnail() ? $file->getProperty('thumbnail_uri') : '';
                     $linkURL = record_url($item);
                     break;
             }
             // Only return link for tiny thumbnail if it exists
-            $thumbnailURL = $file->hasThumbnail() ? $file->getProperty('square_thumbnail_uri') : null;
+            $thumbnailURL = $file->hasThumbnail() ? $file->getProperty('square_thumbnail_uri') : '';
             $event['media'] = [
                 'url' => $fileURL,
                 'thumbnail' => $thumbnailURL,
