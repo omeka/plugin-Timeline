@@ -29,6 +29,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
         'admin_head',
         'public_head',
         'install',
+        'upgrade',
         'uninstall',
         'initialize',
         'define_acl',
@@ -65,10 +66,10 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
                 `title` TINYTEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `description` TEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `font` TINYTEXT NOT NULL,
-                `item_date` INT UNSIGNED NOT NULL,
-                `item_interval` INT UNSIGNED NOT NULL,
-                `item_title` INT UNSIGNED NOT NULL,
-                `item_description` INT UNSIGNED NOT NULL,
+                `item_date` INT DEFAULT NULL,
+                `item_interval` INT DEFAULT NULL,
+                `item_title` INT DEFAULT NULL,
+                `item_description` INT DEFAULT NULL,
                 `query` TEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `creator_id` INT UNSIGNED NOT NULL,
                 `public` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
@@ -80,6 +81,23 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
             ";
 
         $db->query($sql);
+    }
+
+    public function hookUpgrade($args)
+    {
+        $db = $this->_db;
+        $old = $args['old_version'];
+
+        if (version_compare($old, '1.1', '<')) {
+            $sql = "
+                ALTER TABLE `$db->Timeline`
+                CHANGE `item_date` `item_date` INT DEFAULT NULL,
+                CHANGE `item_interval` `item_interval` INT DEFAULT NULL,
+                CHANGE `item_title` `item_title` INT DEFAULT NULL,
+                CHANGE `item_description` `item_description` INT DEFAULT NULL
+                ";
+            $db->query($sql);
+        }
     }
 
     public function hookUninstall()

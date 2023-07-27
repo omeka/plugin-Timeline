@@ -59,6 +59,11 @@ class Timeline extends Omeka_Record_AbstractRecord implements Zend_Acl_Resource_
         if (is_array($query)) {
           $this->query = serialize($query);
         }
+
+        if ($this->item_date === '') { $this->item_date = null; };
+        if ($this->item_interval === '') { $this->item_interval= null; };
+        if ($this->item_title === '') { $this->item_title = null; };
+        if ($this->item_description === '') { $this->item_description = null; };
     }
 
     /**

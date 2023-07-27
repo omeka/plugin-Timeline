@@ -49,7 +49,6 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
 
         $this->view->form = $form;
         parent::editAction();
-    
     }
 
     public function queryAction()
