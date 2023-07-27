@@ -31,6 +31,11 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
         parent::addAction();
     }
 
+    protected function _redirectAfterAdd($timeline)
+    {
+        $this->_redirect("timeline/query/{$timeline->id}");
+    }
+
     public function editAction()
     {
         $timeline = $this->_helper->db->findById();
@@ -95,7 +100,7 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
 
     protected function _getAddSuccessMessage($timeline)
     {
-        return __('The timeline "%s" was successfully added!', $timeline->title);
+        return __('The timeline "%s" was successfully added! Please search for items to populate timeline.', $timeline->title);
     }
 
     protected function _getEditSuccessMessage($timeline)
