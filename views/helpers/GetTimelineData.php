@@ -97,8 +97,8 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
                 // Invalid property.
                 continue;
             }
-            if ($property_name === 'timestamp' || $property_name === 'interval' || $property_name === 'title') {
-                // Disable searchByMetadata plugin for date and title fields
+            if ($property_name === 'timestamp' || $property_name === 'interval' || $property_name === 'title' || $property_name === 'description') {
+                // Disable searchByMetadata plugin for date, title and description fields
                 $value = metadata($item, [$property->getElementSet()->name, $property->name], array('no_filter' => true));
             } else {
                 $value = metadata($item, [$property->getElementSet()->name, $property->name]);
