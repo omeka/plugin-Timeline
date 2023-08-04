@@ -5,7 +5,7 @@
 $timelineData = json_encode($this->getTimelineData($this->items, $this->timelinejs));
 ?>
 
-<!-- Container. -->
+<!-- Container -->
 <div id="<?php echo timeline_id($this->timelinejs); ?>" style="width: 100%; height: 500px" class="timeline-timeline" data-timeline-data="<?php echo html_escape($timelineData); ?>">
 </div>
 <script>

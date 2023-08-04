@@ -93,6 +93,11 @@ class Timeline_Form_Timeline extends Omeka_Form
             )
         ));
 
+        $this->addElement('checkbox', 'truncate', array(
+            'label' => __('Truncate title/description'),
+            'description' => __('Truncate title and description text to fit in timeline slide without scrolling.'),
+        ));
+
         // Public/Not Public
         $this->addElement('select', 'public', array(
             'label'        => __('Status'),
@@ -116,6 +121,7 @@ class Timeline_Form_Timeline extends Omeka_Form
                   'item_interval',
                   'item_title',
                   'item_description',
+                  'truncate',
                   'public',
                   'featured',
                  ),

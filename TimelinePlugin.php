@@ -70,6 +70,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
                 `item_interval` INT DEFAULT NULL,
                 `item_title` INT DEFAULT NULL,
                 `item_description` INT DEFAULT NULL,
+                `truncate` BOOLEAN NULL,
                 `query` TEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `creator_id` INT UNSIGNED NOT NULL,
                 `public` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
@@ -94,7 +95,8 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
                 CHANGE `item_date` `item_date` INT DEFAULT NULL,
                 CHANGE `item_interval` `item_interval` INT DEFAULT NULL,
                 CHANGE `item_title` `item_title` INT DEFAULT NULL,
-                CHANGE `item_description` `item_description` INT DEFAULT NULL
+                CHANGE `item_description` `item_description` INT DEFAULT NULL,
+                ADD `truncate` BOOLEAN NULL
                 ";
             $db->query($sql);
         }

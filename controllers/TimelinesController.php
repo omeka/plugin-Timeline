@@ -50,6 +50,7 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
                                  'item_interval' => $timeline->item_interval,
                                  'item_title' => $timeline->item_title,
                                  'item_description' => $timeline->item_description,
+                                 'truncate' => $timeline->truncate,
                                  'featured' => $timeline->featured));
 
         $this->view->form = $form;
