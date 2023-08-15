@@ -14,6 +14,17 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
         $this->_helper->db->setDefaultModelName('Timeline');
     }
 
+    public function browseAction()
+    {
+        $db = $this->_helper->db;
+
+        // Set the order of timelines.
+        $timelinesTable = $db->getTable('Timeline');
+        $timelines = $timelinesTable->fetchOrderedTimelines();
+
+        $this->view->assign('timelines', $timelines);
+    }
+
     public function addAction()
     {
         require_once TIMELINE_FORMS_DIR . '/timeline.php';
@@ -36,6 +47,11 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
         $this->_redirect("timeline/query/{$timeline->id}");
     }
 
+    protected function _redirectAfterDelete($record)
+    {
+        $this->_redirect("timeline");
+    }
+
     public function editAction()
     {
         $timeline = $this->_helper->db->findById();
@@ -50,8 +66,9 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
                                  'item_interval' => $timeline->item_interval,
                                  'item_title' => $timeline->item_title,
                                  'item_description' => $timeline->item_description,
+                                 'featured' => $timeline->featured,
                                  'truncate' => $timeline->truncate,
-                                 'featured' => $timeline->featured));
+                                 'order' => $timeline->order));
 
         $this->view->form = $form;
         parent::editAction();
@@ -97,6 +114,34 @@ class Timeline_TimelinesController extends Omeka_Controller_AbstractActionContro
 
         $this->view->timeline = $timeline;
         $this->view->items = $items;
+    }
+
+    /**
+     * Order the timelines.
+     */
+    public function updateOrderAction()
+    {
+        // Allow only AJAX requests.
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            $this->_helper->redirector->gotoUrl('/');
+        }
+
+        // Update the timeline orders.
+        $this->_helper->db->getTable('Timeline')->updateOrder($this->_getParam('timelines'));
+    }
+
+    /**
+     * Reset the timeline order to default (order added).
+     */
+    public function resetOrderAction()
+    {
+        // Allow only AJAX requests.
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            $this->_helper->redirector->gotoUrl('/');
+        }
+
+        // Reorder Timeline param array by ID.
+        $this->_helper->db->getTable('Timeline')->resetOrder();
     }
 
     protected function _getAddSuccessMessage($timeline)

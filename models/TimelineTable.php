@@ -9,6 +9,56 @@
 class TimelineTable extends Omeka_Db_Table {
 
     /**
+     * Fetch the timelines in order.
+     *
+     * @return array
+     */
+    public function fetchOrderedTimelines()
+    {
+        $timelineTable = $this->getDb()->Timelines;
+        $sql = "
+        SELECT i.*
+        FROM $timelineTable as i
+        ORDER BY `order`";
+        return $this->fetchObjects($sql);
+    }
+
+    /**
+     * Update the admin/public timeline order.
+     *
+     * @param array $timelines
+     */
+    public function updateOrder(array $timelines)
+    {
+        $timelineTable = $this->getDb()->Timelines;
+        foreach ($timelines as $timelineOrder => $timelineId) {
+            $sql = "
+            UPDATE $timelineTable
+            SET `order` = ?
+            WHERE id = ?";
+            $this->query($sql, array($timelineOrder, $timelineId));
+        }
+    }
+
+    /**
+     * Reset the admin/public timeline order.
+     *
+     * @param array $timelines
+     */
+    public function resetOrder()
+    {
+        // Refresh the timeline order to start with 1 and be sequentially unbroken.
+        $sql = "SET @order = 0";
+        $this->query($sql);
+
+        $timelineTable = $this->getDb()->Timelines;
+        $sql = "
+        UPDATE $timelineTable
+        SET `order` = (SELECT @order := @order + 1)";
+        $this->query($sql);
+    }
+
+    /**
      * Filter public/not public timelines.
      *
      * @param Zend_Db_Select

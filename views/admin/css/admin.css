@@ -1,0 +1,15 @@
+#sortable { 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}
+.timeline-title {
+    font-weight: bold;
+}
+.other-meta {
+    margin-left: 2rem;
+}
+.add.button {
+    float: none;
+    margin: 0;
+}

@@ -2,49 +2,42 @@
 /**
  * The browse view for the Timeline administrative panel.
  */
-
+queue_js_file('timeline-order');
 $head = array('bodyclass' => 'timelines primary', 
               'title' => html_escape(__('Timeline | Browse Timelines')));
 echo head($head);
 ?>
 <?php echo flash(); ?>
-<?php if ($total_results) : ?>
+<?php if ($timelines) : ?>
 <?php echo pagination_links(); ?>
 <?php if (is_allowed('Timeline_Timelines', 'add')): ?>
-    <a href="<?php echo html_escape(url('timeline/timelines/add')); ?>" class="add full-width-mobile button green">
+    <p><a href="<?php echo html_escape(url('timeline/timelines/add')); ?>" class="add full-width-mobile button green">
         <?php echo __('Add a Timeline'); ?>
     </a>
+    <button id="reset-button" class="add full-width-mobile button"><?php echo __('Reset Timeline order'); ?></button>
+    </p>
 <?php endif; ?>
-<table>
-    <thead id="timelines-table-head">
-        <tr>
-        <th><?php echo __('Title'); ?></th>
-        <th><?php echo __('Description'); ?></th>
-        </tr>
-    </thead>
-    <tbody id="types-table-body">
-        <?php foreach (loop('Timeline') as $timeline): ?>
-        <tr>
-            <td class="timeline-title title">
-                <?php echo link_to($timeline, 'show', $timeline->title); ?>
-                <ul class="action-links group">
-                        <?php if (is_allowed($timeline, 'edit')): ?>
-                        <li><?php echo link_to($timeline, 'edit', __('Edit Metadata')); ?></li>
-                        <?php endif; ?>
-                        <?php if (is_allowed($timeline, 'query')): ?>
-                        <li><?php echo link_to($timeline, 'query', __('Edit Item Query')); ?></li>
-                        <?php endif; ?>
-
-                        <?php if (is_allowed($timeline, 'delete')): ?>
-                        <li><?php echo link_to($timeline, 'delete-confirm', __('Delete'), array('class' => 'delete-confirm')); ?></li>
-                        <?php endif; ?>
-                </ul>
-            </td>
-            <td><?php echo snippet_by_word_count(metadata($timeline, 'description'), '10'); ?></td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+<p id="message" style="color: green;"></p>
+<ul id="sortable" class="ui-sortable">
+    <?php foreach ($timelines as $timeline): ?>
+    <li id="timelines-<?php echo html_escape($timeline->id) ?>" class="ui-state-default sortable-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+        <span class="timeline-title"><?php echo link_to($timeline, 'show', $timeline->title); ?></span>
+        <div class="other-meta">
+                <?php
+                    if (is_allowed($timeline, 'edit')) {
+                        echo link_to($timeline, 'edit', __('Edit Metadata')) . ' | ';
+                    }
+                    if (is_allowed($timeline, 'query')) {
+                        echo link_to($timeline, 'query', __('Edit Item Query')) . ' | ';
+                    }
+                    if (is_allowed($timeline, 'delete')) {
+                        echo link_to($timeline, 'delete-confirm', __('Delete'), array('class' => 'delete-confirm'));
+                    }
+                ?>
+        </div>
+    </li>
+    <?php endforeach; ?>
+</ul>
 <?php echo pagination_links(); ?>
 
 <?php else : ?>

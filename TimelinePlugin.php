@@ -47,6 +47,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
     public function hookAdminHead()
     {
         queue_css_url('https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css');
+        queue_css_file('admin');
         queue_js_url('https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js');
     }
 
@@ -70,11 +71,12 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
                 `item_interval` INT DEFAULT NULL,
                 `item_title` INT DEFAULT NULL,
                 `item_description` INT DEFAULT NULL,
-                `truncate` BOOLEAN NULL,
                 `query` TEXT COLLATE utf8_unicode_ci DEFAULT NULL,
                 `creator_id` INT UNSIGNED NOT NULL,
                 `public` TINYINT(1) UNSIGNED NOT NULL DEFAULT '0',
                 `featured` TINYINT(1) NOT NULL DEFAULT '0',
+                `truncate` BOOLEAN NULL,
+                `order` INT DEFAULT NULL,
                 `added` timestamp NOT NULL default '2000-01-01 00:00:00',
                 `modified` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
                 PRIMARY KEY (`id`)
@@ -96,7 +98,8 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
                 CHANGE `item_interval` `item_interval` INT DEFAULT NULL,
                 CHANGE `item_title` `item_title` INT DEFAULT NULL,
                 CHANGE `item_description` `item_description` INT DEFAULT NULL,
-                ADD `truncate` BOOLEAN NULL
+                ADD `truncate` BOOLEAN NULL,
+                ADD `order` INT DEFAULT NULL
                 ";
             $db->query($sql);
         }
@@ -141,7 +144,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
             array('id'          => '\d+'));
         $router->addRoute('timelinesAction', $actionRoute);
 
-        $defaultRoute = new Zend_Controller_Router_Route('timeline/:action',
+        $defaultRoute = new Zend_Controller_Router_Route('admin/timeline/:action',
             array(
                 'module'        => 'timeline',
                 'controller'    => 'timelines'
