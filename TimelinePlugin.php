@@ -148,7 +148,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
             array(
                 'module'        => 'timeline',
                 'controller'    => 'timelines'
-                ),
+                )
             );
         $router->addRoute('timelinesDefault', $defaultRoute);
 
@@ -157,7 +157,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
                 'module'        => 'timeline',
                 'controller'    => 'timelines',
                 'action'        => 'browse'
-                ),
+                )
             );
         $router->addRoute('timelinesRedirect', $redirectRoute);
 
