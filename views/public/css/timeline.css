@@ -12,7 +12,7 @@ body {
     padding: 12px 0px !important;
 }
 .tl-layout-landscape {
-    height: unset !important;
+    overflow: visible !important;
 }
 .tl-menubar-button {
     background-color: rgba(242, 242, 242, 0.9) !important;
