@@ -18,7 +18,7 @@ echo head($head);
     </p>
 <?php endif; ?>
 <p id="message" style="color: green;"></p>
-<p>Drag and drop timelines in the order you would like them displayed on the <a href="<?php echo public_url('timeline') ?>">public timeline page</a></p>
+<p>Drag and drop timelines in the order you would like them displayed on the <a href="<?php echo html_escape(public_url('timeline')); ?>" target="_blank">public timeline page</a>.</p>
 <ul id="sortable" class="ui-sortable">
     <?php foreach ($timelines as $timeline): ?>
     <li id="timelines-<?php echo html_escape($timeline->id) ?>" class="ui-state-default sortable-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
