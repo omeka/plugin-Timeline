@@ -8,6 +8,9 @@ button.tl-slidenav-next, button.tl-slidenav-previous {
 body {
     word-wrap: unset !important;
 }
+.timeline {
+    margin-bottom: 15px !important;
+}
 #content > div, #content section {
     padding: 12px 0px !important;
 }
