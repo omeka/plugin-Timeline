@@ -13,8 +13,6 @@ echo head($head);
     <!-- Construct the timeline. -->
     <?php echo $this->partial('timelines/_timelinejs.php', array('items' => $items, 'timelinejs' => $timeline)); ?>
 
-    <?php echo metadata($timeline, 'description'); ?>
-
     <script>
       jQuery(document).ready(function($) {
             // Use webkit-line-clamp to truncate if selected
