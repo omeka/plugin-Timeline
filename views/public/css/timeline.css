@@ -7,6 +7,7 @@ button.tl-slidenav-next, button.tl-slidenav-previous {
 }
 body {
     word-wrap: unset !important;
+    word-break: unset !important;
 }
 .timeline {
     margin-bottom: 15px !important;
@@ -23,4 +24,37 @@ body {
 }
 .tl-menubar-button:hover, .tl-menubar-button:focus-visible {
     background-color: #333 !important;
+}
+.truncateText {
+    max-height: 320px;
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: top;
+}
+.truncateMedia {
+    display: table-cell;
+    float: none !important;
+}
+.truncateContentContainer {
+    height: 320px;
+}
+.truncateContentContainerAfter::after {
+    content: '';
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: linear-gradient(transparent, white);
+}
+.truncateHeadlineLink {
+    margin-top: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+}
+.truncateTimelineParagraph {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }

@@ -15,24 +15,27 @@ echo head($head);
 
     <script>
       jQuery(document).ready(function($) {
-            // Use webkit-line-clamp to truncate if selected
+            // Only fade out divs that exceed max slide height of 320px
+            function fadeOut() {
+                if ($(this).find('.tl-text-content').height() +
+                    $(this).find('.tl-headline-date').height() +
+                    $(this).find('.tl-headline').height() > 320) {
+                        $(this).addClass('truncateContentContainerAfter');
+                }
+            }
+
+            // Use webkit-line-clamp and linear-gradient to truncate if selected (see timeline.css)
             <?php if (metadata($timeline, 'truncate')): ?>
-                $('.tl-text-headline-container, .tl-text-content').css({
-                    'display': '-webkit-box',
-                    '-webkit-box-orient': 'vertical',
-                    'overflow': 'hidden',
-                    'font-size': '1rem',
-                    'line-height': '1.5rem',
-                });
-                $('.tl-text-headline-container').css({
-                    '-webkit-line-clamp': '2',
-                    'height': '6rem',
-                    'max-height': '105px',
-                });
-                $('.tl-text-content').css({
-                    '-webkit-line-clamp': '4',
-                    'height': '5.5rem',
-                    'max-height': '200px',
+                $('.tl-text').addClass('truncateText');
+                $('.tl-media').addClass('truncateMedia');
+                $('.tl-text-content-container').addClass('truncateContentContainer');
+                $('.tl-headline a').addClass('truncateHeadlineLink');
+                $('.tl-timeline p').addClass('truncateTimelineParagraph');
+                // Iterate through slide text containers
+                $('.tl-text-content-container').each(fadeOut);
+                // Run after window load for Chrome to calculate heights correctly
+                $(window).on('load', function () {
+                    $('.tl-text-content-container').each(fadeOut);
                 });
             <?php endif; ?>
         });
