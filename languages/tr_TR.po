@@ -1,0 +1,245 @@
+# Translation for the Simple Pages plugin for Omeka.
+# Copyright (C) 2011 Roy Rosenzweig Center for History and New Media
+# This file is distributed under the same license as the Omeka package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Kamil Comlekci, 2023
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Timeline\n"
+"Report-Msgid-Bugs-To: http://github.com/omeka/plugin-Timeline/issues\n"
+"POT-Creation-Date: 2012-01-09 21:49-0500\n"
+"PO-Revision-Date: 2023-02-23 19:07+0000\n"
+"Last-Translator: Kamil Comlekci, 2023\n"
+"Language-Team: Turkish (Turkey) (https://app.transifex.com/omeka/teams/14184/tr_TR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr_TR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: TimelinePlugin.php:177
+msgid ""
+"<strong>Warning</strong>: Uninstalling the Timeline plugin\n"
+"          will remove all Timeline records."
+msgstr ""
+"Uyarı: Zaman Çizelgesi eklentisinin kaldırılması, tüm Zaman Çizelgesi "
+"kayıtlarının kaldırılmasına neden olacaktır."
+
+#: TimelinePlugin.php:213 TimelinePlugin.php:232 TimelinePlugin.php:247
+msgid "Timeline"
+msgstr "Zaman Çizelgesi"
+
+#: TimelinePlugin.php:248
+msgid "Embed a timeline."
+msgstr "Bir zaman çizelgesi yerleştirin."
+
+#: controllers/TimelinesController.php:39
+msgid "There were errors found in your form. Please edit and resubmit."
+msgstr ""
+
+#: controllers/TimelinesController.php:86
+msgid "There was an error on the form. Please try again."
+msgstr ""
+
+#: controllers/TimelinesController.php:149
+#, php-format
+msgid ""
+"The timeline \"%s\" was successfully added! Please search for items to "
+"populate timeline."
+msgstr ""
+
+#: controllers/TimelinesController.php:154
+#, php-format
+msgid "The timeline \"%s\" was successfully changed!"
+msgstr "\"%s\" zaman çizelgesi başarıyla değiştirildi!"
+
+#: controllers/TimelinesController.php:159
+#, php-format
+msgid "The timeline \"%s\" was successfully deleted!"
+msgstr "\"%s\" zaman çizelgesi başarıyla silindi!"
+
+#: controllers/TimelinesController.php:164
+#, php-format
+msgid ""
+"This will delete the timeline \"%s\" and its associated metadata. This will "
+"not delete any items associated with this timeline."
+msgstr ""
+"Bu, \"%s\" zaman çizelgesini ve ilişkili meta verilerini siler. Bu, bu zaman"
+" çizelgesiyle ilişkili hiçbir öğeyi silmez."
+
+#: forms/timeline.php:16
+msgid "Title"
+msgstr ""
+
+#: forms/timeline.php:17
+msgid "A title for your timeline."
+msgstr "Zaman çizelgeniz için bir başlık."
+
+#: forms/timeline.php:23
+msgid "Description"
+msgstr ""
+
+#: forms/timeline.php:24
+msgid "A description for your timeline."
+msgstr "Zaman çizelgeniz için bir açıklama"
+
+#: forms/timeline.php:30
+msgid "Font"
+msgstr "Font"
+
+#: forms/timeline.php:31
+msgid ""
+"Customize your timeline font. Choices with two fonts style title & body "
+"text, respectively."
+msgstr ""
+"Zaman çizelgesi yazı tipinizi özelleştirin. Sırasıyla başlık ve gövde metni "
+"stilinde iki yazı tipine sahip seçenekler."
+
+#: forms/timeline.php:58
+msgid "Item date field"
+msgstr "Öğe tarihi alanı"
+
+#: forms/timeline.php:59
+msgid ""
+"Metadata field to use for item date containing discrete time/date values "
+"(must be in YYYY-MM-DDThh:mm:ss format)."
+msgstr ""
+"Ayrık saat/tarih değerleri içeren öğe tarihi için kullanılacak meta veri "
+"alanı (YYYY-AA-GGTss:dd:ss biçiminde olmalıdır)."
+
+#: forms/timeline.php:68
+msgid "Item interval field"
+msgstr "Öğe aralığı alanı"
+
+#: forms/timeline.php:69
+msgid ""
+"Metadata field to use for item date containing time/date span values (must "
+"be in YYYY-MM-DDThh:mm:ss/YYYY-MM-DDThh:mm:ss format)."
+msgstr ""
+"Saat/tarih aralığı değerlerini içeren öğe tarihi için kullanılacak meta veri"
+" alanı (YYYY-AA-GGThs:dd:ss/YYYY-AA-DDThs:dd:ss biçiminde olmalıdır)."
+
+#: forms/timeline.php:78
+msgid "Item title field"
+msgstr "Öğe başlığı alanı"
+
+#: forms/timeline.php:79
+msgid "Metadata field to use for item title in timeline."
+msgstr "Zaman çizelgesinde öğe başlığı için kullanılacak meta veri alanı."
+
+#: forms/timeline.php:88
+msgid "Item description field"
+msgstr "Öğe açıklama alanı"
+
+#: forms/timeline.php:89
+msgid "Metadata field to use for item description in timeline."
+msgstr "Zaman çizelgesinde öğe açıklaması için kullanılacak meta veri alanı."
+
+#: forms/timeline.php:97
+msgid "Truncate title/description"
+msgstr ""
+
+#: forms/timeline.php:98
+msgid ""
+"Truncate title and description text to fit in timeline slide without "
+"vertical scrolling."
+msgstr ""
+
+#: forms/timeline.php:103
+msgid "Status"
+msgstr "Durum"
+
+#: forms/timeline.php:104
+msgid "Whether the timeline is public or not."
+msgstr "Zaman çizelgesi herkese açık yada değil."
+
+#: forms/timeline.php:110
+msgid "Featured"
+msgstr ""
+
+#: forms/timeline.php:111
+msgid "Whether the timeline is featured or not."
+msgstr "Zaman çizelgesi öne çıkarılmış yada değil."
+
+#: models/Timeline.php:54
+msgid "Title is required."
+msgstr "Başlık gereklidir."
+
+#: views/admin/timelines/add.php:7
+msgid "Timeline | Add a Timeline"
+msgstr "Zaman Çizelgesi | Zaman Çizelgesi Ekle"
+
+#: views/admin/timelines/browse.php:7
+msgid "Timeline | Browse Timelines"
+msgstr "Zaman Çizelgesi | Zaman Çizelgelerine Göz Atın"
+
+#: views/admin/timelines/browse.php:15 views/admin/timelines/browse.php:45
+msgid "Add a Timeline"
+msgstr "Zaman Çizelgesi Ekle"
+
+#: views/admin/timelines/browse.php:17
+msgid "Reset Timeline order"
+msgstr ""
+
+#: views/admin/timelines/browse.php:29 views/admin/timelines/show.php:34
+msgid "Edit Metadata"
+msgstr "Meta Verileri Düzenle"
+
+#: views/admin/timelines/browse.php:32 views/admin/timelines/show.php:35
+msgid "Edit Item Query"
+msgstr "Öğe Sorgusunu Düzenle"
+
+#: views/admin/timelines/browse.php:35 views/admin/timelines/show.php:38
+msgid "Delete"
+msgstr ""
+
+#: views/admin/timelines/browse.php:45
+msgid "There are no timelines."
+msgstr "Zaman çizelgeleri yok."
+
+#: views/admin/timelines/edit.php:7
+#, php-format
+msgid "Timeline | Edit \"%s\" Metadata"
+msgstr "Zaman Çizelgesi | \"%s\" Meta Verilerini Düzenle"
+
+#: views/admin/timelines/query.php:7
+#, php-format
+msgid "Timeline | Edit \"%s\" Items Query"
+msgstr "Zaman Çizelgesi | \"%s\" Öğe Sorgusunu Düzenle"
+
+#: views/admin/timelines/query.php:21 views/admin/timelines/show.php:24
+#, php-format
+msgid ""
+"The &#8220;%s&#8221; timeline displays items that match the following query:"
+msgstr ""
+"&#8220;%s&#8221; zaman çizelgesi, aşağıdaki sorguyla eşleşen öğeleri "
+"görüntüler:"
+
+#: views/admin/timelines/show.php:8
+#, php-format
+msgid "Timeline | %s"
+msgstr "Zaman Çizelgesi | %s"
+
+#: views/admin/timelines/show.php:23
+msgid "Items Query"
+msgstr "Öğe Sorgusu"
+
+#: views/admin/timelines/show.php:37
+msgid "View Public Page"
+msgstr ""
+
+#: views/public/timelines/browse.php:7 views/public/timelines/browse.php:12
+msgid "Browse Timelines"
+msgstr "Zaman Çizelgelerine Göz Atın"
+
+#: views/public/timelines/browse.php:24
+msgid "You have no timelines."
+msgstr "Zaman çizelgeniz yok."
+
+#: views/shared/exhibit_layouts/timeline/form.php:8
+msgid "Select a timeline"
+msgstr "Bir zaman çizelgesi seçin"
