@@ -91,7 +91,7 @@ class TimelinePlugin extends Omeka_Plugin_AbstractPlugin
         $db = $this->_db;
         $old = $args['old_version'];
 
-        if (version_compare($old, '1.1', '<')) {
+        if (version_compare($old, '2.0', '<')) {
             $sql = "
                 ALTER TABLE `$db->Timeline`
                 CHANGE `item_date` `item_date` INT DEFAULT NULL,
