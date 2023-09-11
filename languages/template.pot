@@ -17,44 +17,62 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: TimelinePlugin.php:154
+#: TimelinePlugin.php:177
 msgid ""
 "<strong>Warning</strong>: Uninstalling the Timeline plugin\n"
 "          will remove all Timeline records."
 msgstr ""
 
-#: TimelinePlugin.php:190 TimelinePlugin.php:209 TimelinePlugin.php:224
+#: TimelinePlugin.php:213 TimelinePlugin.php:232 TimelinePlugin.php:247
 msgid "Timeline"
 msgstr ""
 
-#: TimelinePlugin.php:225
+#: TimelinePlugin.php:248
 msgid "Embed a timeline."
 msgstr ""
 
-#: controllers/TimelinesController.php:99
-#, php-format
-msgid "The timeline \"%s\" was successfully added!"
+#: controllers/TimelinesController.php:39
+msgid "There were errors found in your form. Please edit and resubmit."
 msgstr ""
 
-#: controllers/TimelinesController.php:104
+#: controllers/TimelinesController.php:86
+msgid "There was an error on the form. Please try again."
+msgstr ""
+
+#: controllers/TimelinesController.php:149
+#, php-format
+msgid ""
+"The timeline \"%s\" was successfully added! Please search for items to "
+"populate timeline."
+msgstr ""
+
+#: controllers/TimelinesController.php:154
 #, php-format
 msgid "The timeline \"%s\" was successfully changed!"
 msgstr ""
 
-#: controllers/TimelinesController.php:109
+#: controllers/TimelinesController.php:159
 #, php-format
 msgid "The timeline \"%s\" was successfully deleted!"
 msgstr ""
 
-#: controllers/TimelinesController.php:114
+#: controllers/TimelinesController.php:164
 #, php-format
 msgid ""
 "This will delete the timeline \"%s\" and its associated metadata. This will "
 "not delete any items associated with this timeline."
 msgstr ""
 
+#: forms/timeline.php:16
+msgid "Title"
+msgstr ""
+
 #: forms/timeline.php:17
 msgid "A title for your timeline."
+msgstr ""
+
+#: forms/timeline.php:23
+msgid "Description"
 msgstr ""
 
 #: forms/timeline.php:24
@@ -107,19 +125,33 @@ msgstr ""
 msgid "Metadata field to use for item description in timeline."
 msgstr ""
 
+#: forms/timeline.php:97
+msgid "Truncate title/description"
+msgstr ""
+
 #: forms/timeline.php:98
+msgid ""
+"Truncate title and description text to fit in timeline slide without "
+"vertical scrolling."
+msgstr ""
+
+#: forms/timeline.php:103
 msgid "Status"
 msgstr ""
 
-#: forms/timeline.php:99
+#: forms/timeline.php:104
 msgid "Whether the timeline is public or not."
 msgstr ""
 
-#: forms/timeline.php:106
+#: forms/timeline.php:110
+msgid "Featured"
+msgstr ""
+
+#: forms/timeline.php:111
 msgid "Whether the timeline is featured or not."
 msgstr ""
 
-#: models/Timeline.php:52
+#: models/Timeline.php:54
 msgid "Title is required."
 msgstr ""
 
@@ -131,19 +163,27 @@ msgstr ""
 msgid "Timeline | Browse Timelines"
 msgstr ""
 
-#: views/admin/timelines/browse.php:15 views/admin/timelines/browse.php:51
+#: views/admin/timelines/browse.php:15 views/admin/timelines/browse.php:45
 msgid "Add a Timeline"
 msgstr ""
 
-#: views/admin/timelines/browse.php:32 views/admin/timelines/show.php:34
+#: views/admin/timelines/browse.php:17
+msgid "Reset Timeline order"
+msgstr ""
+
+#: views/admin/timelines/browse.php:29 views/admin/timelines/show.php:34
 msgid "Edit Metadata"
 msgstr ""
 
-#: views/admin/timelines/browse.php:35 views/admin/timelines/show.php:35
+#: views/admin/timelines/browse.php:32 views/admin/timelines/show.php:35
 msgid "Edit Item Query"
 msgstr ""
 
-#: views/admin/timelines/browse.php:51
+#: views/admin/timelines/browse.php:35 views/admin/timelines/show.php:38
+msgid "Delete"
+msgstr ""
+
+#: views/admin/timelines/browse.php:45
 msgid "There are no timelines."
 msgstr ""
 
@@ -170,6 +210,10 @@ msgstr ""
 
 #: views/admin/timelines/show.php:23
 msgid "Items Query"
+msgstr ""
+
+#: views/admin/timelines/show.php:37
+msgid "View Public Page"
 msgstr ""
 
 #: views/public/timelines/browse.php:7 views/public/timelines/browse.php:12
