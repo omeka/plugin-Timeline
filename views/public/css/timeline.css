@@ -12,7 +12,7 @@ body {
 .timeline {
     margin-bottom: 15px !important;
 }
-#content > div, #content section {
+.tl-timeline {
     padding: 12px 0px !important;
 }
 .tl-layout-landscape {
