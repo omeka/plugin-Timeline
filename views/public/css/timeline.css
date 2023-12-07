@@ -1,13 +1,11 @@
 button.tl-slidenav-next, button.tl-slidenav-previous {
-    height: unset !important;
     top: 150px !important;
 }
 .tl-slidenav-next, .tl-slidenav-previous {
     z-index: 10 !important;
 }
-body {
-    word-wrap: unset !important;
-    word-break: unset !important;
+.tl-timeline {
+    word-wrap: normal;
 }
 .timeline {
     margin-bottom: 15px !important;
