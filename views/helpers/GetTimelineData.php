@@ -57,6 +57,7 @@ class Timeline_View_Helper_GetTimelineData extends Zend_View_Helper_Abstract
             if ($event) {
                 $events[] = $event;
             }
+            release_object($item);
         }
 
         $timelineData = [
