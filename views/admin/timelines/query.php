@@ -21,6 +21,10 @@ if ($query && is_array($query)) {
     <p><strong><?php echo __('The &#8220;%s&#8221; timeline displays items that match the following query:', $timelineTitle) ?></strong></p>
 <?php
     echo item_search_filters($query);
+    // Some parts of the advanced search check $_GET, others check
+    // $_REQUEST, so we set both to be able to edit a previous query.
+    $_GET = $query;
+    $_REQUEST = $query;
 }
 
 $formArgs = array(
