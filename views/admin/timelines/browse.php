@@ -22,7 +22,7 @@ echo head($head);
 <ul id="sortable" class="ui-sortable">
     <?php foreach ($timelines as $timeline): ?>
     <li id="timelines-<?php echo html_escape($timeline->id) ?>" class="ui-state-default sortable-item drawer">
-        <span class="move icon" aria-label="<?php echo __('Move'); ?>" title="<?php echo __('Move'); ?>"></span>
+        <span class="move icon" aria-hidden="true" title="<?php echo __('Move'); ?>"></span>
         <span class="timeline-title drawer-name"><?php echo link_to($timeline, 'show', $timeline->title); ?></span>
         <div class="other-meta">
                 <?php
