@@ -21,8 +21,9 @@ echo head($head);
 <p>Drag and drop timelines in the order you would like them displayed on the <a href="<?php echo html_escape(public_url('timeline')); ?>" target="_blank">public timeline page</a>.</p>
 <ul id="sortable" class="ui-sortable">
     <?php foreach ($timelines as $timeline): ?>
-    <li id="timelines-<?php echo html_escape($timeline->id) ?>" class="ui-state-default sortable-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
-        <span class="timeline-title"><?php echo link_to($timeline, 'show', $timeline->title); ?></span>
+    <li id="timelines-<?php echo html_escape($timeline->id) ?>" class="ui-state-default sortable-item drawer">
+        <span class="move icon" aria-hidden="true" title="<?php echo __('Move'); ?>"></span>
+        <span class="timeline-title drawer-name"><?php echo link_to($timeline, 'show', $timeline->title); ?></span>
         <div class="other-meta">
                 <?php
                     if (is_allowed($timeline, 'edit')) {
