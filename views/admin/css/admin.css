@@ -1,4 +1,4 @@
-#sortable { 
+body.timelines #sortable { 
     list-style-type: none; 
     margin: 0; 
     padding: 0; 
@@ -9,7 +9,7 @@
 .other-meta {
     margin-left: 2rem;
 }
-.add.button {
+body.timelines .add.button {
     float: none;
     margin: 0;
 }
